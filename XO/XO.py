@@ -7,17 +7,16 @@ PLAYERS_SIGNS = ['X', 'O']
 
 
 def get_names() -> List[str]:
-    basic_text = 'Insert the name of player {index}\n'
     inputs = []
     for i in range(2):
-        text = basic_text.format(index=i)
-        inputs.append(input(text))
+        inputs.append(input(f'Insert the name of player {i}\n'))
     return inputs
 
 
 def get_action(current_player: str, board: List[list]) -> Tuple[int, int]:
     """
-    :description: Talks with the user and get an input which represents his move, verify that the move is valid.
+    Talks with the user and get an input which represents his move, verify that the move is valid.
+
     :param current_player: The name of the player which is playing now
     :param board: The board game before the player did his move
     :return: A tuple with the new position coordinates
@@ -25,9 +24,7 @@ def get_action(current_player: str, board: List[list]) -> Tuple[int, int]:
     error_message = 'Error'
     texts = (f'{current_player}, insert line number (0/1/2)\n', f'{current_player}, insert column number (0/1/2)\n')
     while error_message:
-        inputs = []
-        for text in texts:
-            inputs.append(input(text))
+        inputs = [input(text) for text in texts]
         error_message = is_legal_position(inputs, board)
         if error_message:
             print(error_message)
@@ -36,13 +33,16 @@ def get_action(current_player: str, board: List[list]) -> Tuple[int, int]:
 
 def is_legal_position(position: List[str], board: List[list]) -> Union[str, None]:
     """
+    Checks if the the coordinates of the game board are legal
+
     :param position: The inputs from the user
-    :return: None if legal position, else: return message of the error
+    :param board: A matrix which represents the game board
+    :return: None if the position is legal, or message of the error if the position is not legal
     """
     for i, user_input in enumerate(position):
         if not user_input.isdecimal():
             return f'Error: input number {i} is not a number'
-        if int(user_input) < 0 or int(user_input) >= N:
+        if not 0 <= int(user_input) < N:
             return f'Error: input number {i} is not in range'
     if board[int(position[0])][int(position[1])] is not None:
         return 'Error: someone chose this position'
@@ -61,16 +61,17 @@ def print_board(board: List[list]):
         print(f'{line_index}\t' + '\t'.join(print_line))
 
 
-def _are_all_equal(l: Union[list, tuple]) -> bool:
+def _are_all_equal(l: list) -> bool:
     """
-    If empty cell in l: return false
+    false if there is None in l
     """
     return l[0] is not None and l.count(l[0]) == len(l)
 
 
 def get_winner(board: List[list]) -> Union[int, None]:
     """
-    :description: Looks at the board and checks if there is a winner
+    Looks at the board and checks if there is a winner
+
     :param board: A matrix which represents the game board
     :return: Winner name, or None if there's no winner
     """
