@@ -1,11 +1,16 @@
-class Node(object):
-
+class Node:
+    """
+    Represents a node in MyList object
+    """
     def __init__(self, data, next_node=None):
         self.next_node = next_node
         self.data = data
 
 
-class MyList(object):
+class MyList:
+    """
+    MyList objects have all the methods as list objects
+    """
 
     def __init__(self):
         self.length = 0
@@ -21,11 +26,23 @@ class MyList(object):
         return self._get_node(key).data
 
     def __add__(self, other):
+        """
+        :param other: Iterable object to concatenate
+        :return: A new MyList object that includes self and other concatenated
+        """
         extended = self.copy()
         extended.extend(other)
         return extended
 
     def _get_node(self, key: int) -> Node:
+        """
+        Works like MyList[key] but return the node instead of the value
+
+        :param key: The index in list of the requested Node
+        :return: Node in the position of key
+        """
+        if key >= len(self):
+            raise IndexError('list index is out of range')
         current = self.first_node
         i = 0
         while current:
@@ -74,14 +91,14 @@ class MyList(object):
 
     def pop(self, index: int):
         if index == 0:
-            poped_node = self.first_node
+            pop_node = self.first_node
             self.first_node = self.first_node.next_node
         else:
             prev_node = self._get_node(index - 1)
-            poped_node = prev_node.next_node
-            prev_node.next_node = poped_node.next_node
+            pop_node = prev_node.next_node
+            prev_node.next_node = pop_node.next_node
         self.length -= 1
-        return poped_node.data
+        return pop_node.data
 
     def remove(self, value):
         index = self.index(value)
@@ -105,12 +122,21 @@ class MyList(object):
         return self.__repr__()
 
 
-class NodeIterator(object):
+class NodeIterator:
+    """
+    Iterator that iterate over Node objects in MyList object
+    """
 
     def __init__(self, my_list: MyList):
+        """
+        :param my_list: The object to iterate
+        """
         self.current = my_list.first_node
 
     def __next__(self):
+        """
+        :return: The data of the next node
+        """
         if not self.current:
             raise StopIteration()
         current = self.current
