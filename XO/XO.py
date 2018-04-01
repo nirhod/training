@@ -7,10 +7,7 @@ PLAYERS_SIGNS = ['X', 'O']
 
 
 def get_names() -> List[str]:
-    inputs = []
-    for i in range(2):
-        inputs.append(input(f'Insert the name of player {i}\n'))
-    return inputs
+    return [input(f'Insert the name of player {i}\n') for i in range(2)]
 
 
 def get_action(current_player: str, board: List[list]) -> Tuple[int, int]:
@@ -22,9 +19,10 @@ def get_action(current_player: str, board: List[list]) -> Tuple[int, int]:
     :return: A tuple with the new position coordinates
     """
     error_message = 'Error'
-    texts = (f'{current_player}, insert line number (0/1/2)\n', f'{current_player}, insert column number (0/1/2)\n')
+    row = f'{current_player}, insert line number (0/1/2)\n'
+    column = f'{current_player}, insert column number (0/1/2)\n'
     while error_message:
-        inputs = [input(text) for text in texts]
+        inputs = [input(row), input(column)]
         error_message = is_legal_position(inputs, board)
         if error_message:
             print(error_message)
