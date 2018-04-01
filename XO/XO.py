@@ -18,13 +18,14 @@ def get_action(current_player: str, board: List[list]) -> Tuple[int, int]:
     :param board: The board game before the player did his move
     :return: A tuple with the new position coordinates
     """
-    error_message = 'Error'
+    legal_input_flag = False
     column_options = '/'.join([str(i) for i in range(COLUMNS_NUMBER)])
-    while error_message:
+    while not legal_input_flag:
         inputs = [input(f'{current_player}, insert line number ({column_options})\n'),
                   input(f'{current_player}, insert column number ({column_options})\n')]
         error_message = is_legal_position(inputs, board)
-        if error_message:
+        legal_input_flag = False if error_message else True
+        if not legal_input_flag:
             print(error_message)
     return inputs[0], inputs[1]
 
