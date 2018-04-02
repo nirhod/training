@@ -6,6 +6,10 @@ class Node:
         self.next_node = next_node
         self.data = data
 
+    def __repr__(self):
+        next_data = self.next_node.data if self.next_node else None
+        return f'{self.data} -> {next_data}'
+
 
 class MyList:
     """
@@ -36,7 +40,7 @@ class MyList:
 
     def _get_node(self, key: int) -> Node:
         """
-        Works like MyList[key] but return the node instead of the value
+        Find the node correspond to key
 
         :param key: The index in list of the requested Node
         :return: Node in the position of key
@@ -111,9 +115,19 @@ class MyList:
         self.first_node = new.first_node
 
     def sort(self):
-        l = sorted(self)
-        self.clear()
-        self.extend(l)
+        if len(self) == 0:
+            return
+        swap_occurred = True
+        current_node = self.first_node
+        while swap_occurred:
+            swap_occurred = False
+            while current_node.next_node:
+                next_node = current_node.next_node
+                if current_node.data > current_node.next_node.data:
+                    swap_occurred = True
+                    current_node.data, current_node.next_node.data = current_node.next_node.data, current_node.data
+                current_node = next_node
+            current_node = self.first_node
 
     def __repr__(self):
         return str([i for i in self])
@@ -149,12 +163,26 @@ if __name__ == '__main__':
     l = MyList()
     print(dir(l))
     print(set(dir(list)) - set(dir(l)))
-    l.append('a')
     l.append('b')
+    l.append('a')
     l.append('c')
     l.append('a')
     print(l)  # [a, b, c, a]
-    l2 = l.copy()
+    l.sort()
+    print(l)
+    l3 = MyList()
+    import random
+    for i in range(30):
+        l3.append(random.randint(0, 400))
+    print(l3)
+    l3.sort()
+    print(l3)
+    l4 = MyList()
+    l4.sort()  # make sure no exception
+    l4.append('a')
+    l4.sort()
+    print(l4)
+    l2 = l.copy()  # make sure no exception
     print(l2 is l)  # False
     print(l2)  #[a, b, c, a]
     l2.clear()
