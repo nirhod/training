@@ -115,6 +115,9 @@ class MyList:
         self.first_node = new.first_node
 
     def sort(self):
+        """
+        Sorting the list using Bubble Sort algorithm in place
+        """
         if len(self) == 0:
             return
         swap_occurred = True
@@ -123,14 +126,23 @@ class MyList:
             swap_occurred = False
             while current_node.next_node:
                 next_node = current_node.next_node
-                if current_node.data > current_node.next_node.data:
+                if current_node.data > next_node.data:
                     swap_occurred = True
-                    current_node.data, current_node.next_node.data = current_node.next_node.data, current_node.data
+                    next_node_data = next_node.data
+                    next_node.data = current_node.data
+                    current_node.data = next_node_data
                 current_node = next_node
             current_node = self.first_node
 
     def __repr__(self):
-        return str([i for i in self])
+        repr_string = '['
+        for i, value in enumerate(self):
+            if i < len(self) - 1:
+                repr_string += f'{value}, '
+            else:
+                repr_string += f'{value}'
+        repr_string += ']'
+        return repr_string
 
     def __str__(self):
         return self.__repr__()
@@ -181,12 +193,12 @@ if __name__ == '__main__':
     l4.sort()  # make sure no exception
     l4.append('a')
     l4.sort()
-    print(l4)
+    print(l4)   # ['a']
     l2 = l.copy()  # make sure no exception
     print(l2 is l)  # False
-    print(l2)  #[a, b, c, a]
+    print(l2)  # [a, b, c, a]
     l2.clear()
-    print(l2)  #[]
+    print(l2)  # []
     print(l.count('a'))  # 2
     print(l.count('aaaa'))      # 0
     l.extend(['d', 'e'])
