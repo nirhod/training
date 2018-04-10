@@ -1,6 +1,6 @@
 class Node:
     """
-    Represents a node in MyList object
+    Represents a node in MyList object.
     """
     def __init__(self, data, next_node=None):
         self.next_node = next_node
@@ -13,7 +13,7 @@ class Node:
 
 class MyList:
     """
-    MyList objects have all the methods as list objects
+    MyList objects have all the methods as list objects.
     """
 
     def __init__(self):
@@ -31,8 +31,8 @@ class MyList:
 
     def __add__(self, other):
         """
-        :param other: Iterable object to concatenate
-        :return: A new MyList object that includes self and other concatenated
+        :param other: Iterable object to concatenate.
+        :return: A new MyList object that includes self and other concatenated.
         """
         extended = self.copy()
         extended.extend(other)
@@ -40,10 +40,10 @@ class MyList:
 
     def _get_node(self, key: int) -> Node:
         """
-        Find the node correspond to key
+        Find the node correspond to key.
 
-        :param key: The index in list of the requested Node
-        :return: Node in the position of key
+        :param key: The index in list of the requested Node.
+        :return: Node in the position of key.
         """
         if key >= len(self):
             raise IndexError('list index is out of range')
@@ -116,22 +116,27 @@ class MyList:
 
     def sort(self):
         """
-        Sorting the list using Bubble Sort algorithm in place
+        Sorting the list using Bubble Sort algorithm in place.
+        Bubble Sort: Go through the list again an again until there are no more swaps.
+                    There is a swap if a node bigger than the next node.
         """
         if len(self) == 0:
             return
         swap_occurred = True
         current_node = self.first_node
+        # While there was at least one swap when iterating the list.
         while swap_occurred:
             swap_occurred = False
             while current_node.next_node:
                 next_node = current_node.next_node
                 if current_node.data > next_node.data:
+                    # Do swap.
                     swap_occurred = True
                     next_node_data = next_node.data
                     next_node.data = current_node.data
                     current_node.data = next_node_data
                 current_node = next_node
+            # Prepare for next iteration.
             current_node = self.first_node
 
     def __repr__(self):
@@ -150,18 +155,18 @@ class MyList:
 
 class NodeIterator:
     """
-    Iterator that iterate over Node objects in MyList object
+    Iterator that iterate over Node objects in MyList object.
     """
 
     def __init__(self, my_list: MyList):
         """
-        :param my_list: The object to iterate
+        :param my_list: The object to iterate.
         """
         self.current = my_list.first_node
 
     def __next__(self):
         """
-        :return: The data of the next node
+        :return: The data of the next node.
         """
         if not self.current:
             raise StopIteration()
