@@ -10,11 +10,11 @@ engine = create_engine('sqlite:///./midas.db')
 session = sessionmaker(bind=engine)()
 
 
-class Member(Base):
+class Terrorist(Base):
     """
-    Represents a member in an organization.
+    Represents a Terrorist in an organization.
     """
-    __tablename__ = 'members'
+    __tablename__ = 'Terrorists'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(NAME_LEN))
