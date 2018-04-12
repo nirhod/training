@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker
 
 NAME_LEN = 30
@@ -23,8 +23,32 @@ class Terrorist(Base):
     location = Column(String(DEFAULT_VARCHAR_LEN))
 
     def __repr__(self):
-        return f'<User(id={self.id}, name={self.name}, last_name={self.last_name}, role={self.role}' \
+        return f'<Terrorist(id={self.id}, name={self.name}, last_name={self.last_name}, role={self.role}' \
                f', location={self.location})>'
 
     def __str__(self):
         return self.__repr__()
+
+
+class Organization(Base):
+    """
+    Represents a terror organization.
+    """
+    __tablename__ = 'Organizations'
+
+    id = Column(Integer, primary_key=True)
+    prime_location = Column(String(DEFAULT_VARCHAR_LEN))
+    name = Column(String(NAME_LEN))
+
+
+class Event(Base):
+    """
+    Represents a terror attack.
+    """
+    __tablename__ = 'Events'
+
+    id = Column(Integer, primary_key=True)
+    location = Column(String(DEFAULT_VARCHAR_LEN))
+    date = Column(DateTime)
+
+
