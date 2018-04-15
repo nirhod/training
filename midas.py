@@ -26,6 +26,12 @@ class Organization(Base):
     prime_location = Column(String(DEFAULT_VARCHAR_LEN))
     name = Column(String(NAME_LEN))
 
+    def __repr__(self):
+        return f'<Organization(id={self.id}, name={self.name}, prime_location={self.prime_location})>'
+
+    def __str__(self):
+        return self.__repr__()
+
 
 class Terrorist(Base):
     """
@@ -43,8 +49,9 @@ class Terrorist(Base):
     events = relationship('Event', secondary=association_table_event_terrorist, backref='terrorists')
 
     def __repr__(self):
+        events = [event.id for event in self.events]
         return f'<Terrorist(id={self.id}, name={self.name}, last_name={self.last_name}, role={self.role}' \
-               f', location={self.location})>'
+               f', location={self.location}, organization={self.organization_id}, events={events})>'
 
     def __str__(self):
         return self.__repr__()
@@ -60,5 +67,8 @@ class Event(Base):
     location = Column(String(DEFAULT_VARCHAR_LEN))
     date = Column(DateTime)
 
+    def __repr__(self):
+        return f'<Event(id={self.id}, location={self.location})>'
 
-
+    def __str__(self):
+        return self.__repr__()
