@@ -49,6 +49,3 @@ def run_around_tests():
     yield
     session.close()
     os.remove(DB_PATH)
-
-
-
