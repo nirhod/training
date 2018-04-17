@@ -1,3 +1,19 @@
+def _check_neighborhood(func):
+    """
+    Raise an exception if the neighborhood doesn't exist
+
+    :param neighborhood_name: The name of the neighborhood.
+    """
+
+    def wrapper(self, *args, **kwargs):
+        neighborhood_name = kwargs['neighborhood_name'] if 'neighborhood_name' in kwargs else args[0]
+        if neighborhood_name not in self.neighborhoods:
+            raise KeyError(f'The neighborhood {neighborhood_name} does not exist')
+        return func(self, *args, **kwargs)
+
+    return wrapper
+
+
 class City:
     """
     Represents a city in Ackland, should help calculate the tax of each city.
@@ -17,21 +33,6 @@ class City:
         """
         self.neighborhoods[neighborhood_name] = Neighborhood(neighborhood_name)
         self.base_tax *= 1.1
-
-    def _check_neighborhood(func):
-        """
-        Raise an exception if the neighborhood doesn't exist
-
-        :param neighborhood_name: The name of the neighborhood.
-        """
-
-        def wrapper(self, *args, **kwargs):
-            neighborhood_name = kwargs['neighborhood_name'] if 'neighborhood_name' in kwargs else args[0]
-            if neighborhood_name not in self.neighborhoods:
-                raise KeyError(f'The neighborhood {neighborhood_name} does not exist')
-            return func(self, *args, **kwargs)
-
-        return wrapper
 
     @_check_neighborhood
     def add_new_house(self, neighborhood_name: str, family_members: int, size: int):
