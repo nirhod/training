@@ -18,6 +18,22 @@ class City:
         self.neighborhoods[neighborhood_name] = Neighborhood(neighborhood_name)
         self.base_tax *= 1.1
 
+    def _check_neighborhood(func):
+        """
+        Raise an exception if the neighborhood doesn't exist
+
+        :param neighborhood_name: The name of the neighborhood.
+        """
+
+        def wrapper(self, *args, **kwargs):
+            neighborhood_name = kwargs['neighborhood_name'] if 'neighborhood_name' in kwargs else args[0]
+            if neighborhood_name not in self.neighborhoods:
+                raise KeyError(f'The neighborhood {neighborhood_name} does not exist')
+            return func(self, *args, **kwargs)
+
+        return wrapper
+
+    @_check_neighborhood
     def add_new_house(self, neighborhood_name: str, family_members: int, size: int):
         """
         Creates a new house in a specific neighborhood in the city.
@@ -26,29 +42,28 @@ class City:
         :param family_members: Number of the family members.
         :param size: The area of the house.
         """
-        self._check_neighborhood(neighborhood_name)
         self.neighborhoods[neighborhood_name].add_new_house(family_members, size)
 
+    @_check_neighborhood
     def remove_neighborhood(self, neighborhood_name: str):
         """
         Destroy a neighborhood in the city.
 
         :param neighborhood_name: The name of the neighborhood.
         """
-        self._check_neighborhood(neighborhood_name)
         self.neighborhoods.pop(neighborhood_name)
         self.base_tax *= 1.05
 
+    @_check_neighborhood
     def add_new_park(self, neighborhood_name: str):
         """
         Create a park in a specific neighborhood in the city.
 
         :param neighborhood_name: The name of the neighborhood.
         """
-        self._check_neighborhood(neighborhood_name)
         self.neighborhoods[neighborhood_name].parks += 1
 
-    def _check_neighborhood(self, neighborhood_name: str):
+    def _cn(self, neighborhood_name: str):
         """
         Raise an exception if the neighborhood doesn't exist
 
@@ -134,5 +149,3 @@ if __name__ == '__main__':
     print(synville.all_tax())  # 1259
     synville.remove_neighborhood('RG')
     print(synville.all_tax())  # 1306.5
-
-    # synville.add_new_park('aaa')
