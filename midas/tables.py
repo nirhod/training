@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 import datetime
 
 from .session_creator import Base
-from .query import UseQuery
+from .query_api import UseQuery
 
 NAME_LEN = 30
 DEFAULT_VARCHAR_LEN = 256

@@ -43,6 +43,18 @@ def test_terrorist_refine_filter(db_session):
     assert midas.Terrorist.get().refine(midas.Terrorist.name=='Lady').one() is db_session['terrorists'][0]
 
 
+def test_terrorist_order_by_refine(db_session):
+    assert midas.Terrorist.get().order_by(midas.Terrorist.id).refine(name='Lady').one() == db_session['terrorists'][0]
+    assert midas.Terrorist.get().order_by(midas.Terrorist.id).refine(midas.Terrorist.name=='Lady').one() == \
+           db_session['terrorists'][0]
+
+
+def test_terrorist_refine_order_by(db_session):
+    assert midas.Terrorist.get().refine(name='Lady').order_by(midas.Terrorist.id).one() == db_session['terrorists'][0]
+    assert midas.Terrorist.get().refine(midas.Terrorist.name=='Lady').order_by(midas.Terrorist.id).one() == \
+           db_session['terrorists'][0]
+
+
 @pytest.fixture(scope='session', autouse=True)
 def db_session():
     db_rows = {'organizations': [Organization(prime_location='Communists', name='Cultural Victory')],
