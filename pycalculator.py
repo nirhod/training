@@ -1,4 +1,3 @@
-import pickle
 
 
 def div(dividend: int, divisor: int):
@@ -17,6 +16,9 @@ def sum(num1: int, num2: int):
 
     :return: The sum of num1 and num2.
     """
+    if num1 > 10000 or num2 > 10000:
+        # This exception is raised as an example for pytest.raises.
+        raise TooLargeException
     return num1 + num2
 
 
@@ -27,8 +29,8 @@ def save_number(num: int, path: str):
     :param num: The number to save.
     :param path: Where to save the number.
     """
-    with open(path, 'wb') as num_file:
-        pickle.dump(num, num_file)
+    with open(path, 'w') as num_file:
+        num_file.write(str(num))
 
 
 def load_number(path):
@@ -38,5 +40,12 @@ def load_number(path):
     :param path: Where the number was saved.
     :return: The number in the path.
     """
-    with open(path, 'rb') as num_file:
-        return pickle.load(num_file)
+    with open(path, 'r') as num_file:
+        return int(num_file.read())
+
+
+class TooLargeException(Exception):
+    """
+    Raised when the value is too large for pycalculator.
+    """
+    pass
