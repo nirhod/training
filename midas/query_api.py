@@ -50,6 +50,7 @@ class QueryAPI:
 
         Example: Terrorist.get().refine(id=111) -> <1 Terrorists>
         """
+        # Checks the type of the keys of kwargs, the query is filter_by if the type is str.
         if kwargs and isinstance(next(iter(kwargs.keys())), str):
             query = self.query.filter_by(*entities, **kwargs)
         else:
@@ -68,4 +69,4 @@ class UseQuery:
 
         Example: Terrorist.get() -> <2 Terrorists>
         """
-        return QueryAPI(cls, session.query(cls))
+        return QueryAPI(cls, session.session.query(cls))
