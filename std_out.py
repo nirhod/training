@@ -13,6 +13,7 @@ class stdout_redirect:
         string = sio.read()
     print(string.read())  # 'Hello world' will be printed.
     """
+
     def __enter__(self):
         self.old_stdout = sys.stdout
         sys.stdout = io.StringIO()
