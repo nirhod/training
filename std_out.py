@@ -8,7 +8,7 @@ class stdout_redirect:
 
     Usage example:
     with stdout_redirect() as sio:
-        print('Hello world')  # no print to screen.
+        print('Hello world')  # No print to screen.
         sio.seek(0)
         string = sio.read()
     print(string.read())  # 'Hello world' will be printed.
