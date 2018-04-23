@@ -1,17 +1,17 @@
 import sys
 
-from std_out import stdout_redirect
+from std_out import StdoutRedirect
 
 
 def test_stdout_redirect_restore_stdout():
     old_stdout = sys.stdout
-    with stdout_redirect():
+    with StdoutRedirect():
         pass
     assert old_stdout == sys.stdout
 
 
 def test_stdout_redirect_out():
-    with stdout_redirect() as sio:
+    with StdoutRedirect() as sio:
         print('hello world')
         sio.seek(0)
         stdout_redirected_output = sio.read()
@@ -19,7 +19,7 @@ def test_stdout_redirect_out():
 
 
 def test_stdout_redirect_no_print(capfd):
-    with stdout_redirect():
+    with StdoutRedirect():
         print('hello world')
         print_out, err = capfd.readouterr()
     assert not print_out

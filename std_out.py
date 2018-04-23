@@ -2,7 +2,7 @@ import io
 import sys
 
 
-class stdout_redirect:
+class StdoutRedirect:
     """
     A context manager that redirect the prints of stdout to itself.
 
