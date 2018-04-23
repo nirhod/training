@@ -9,8 +9,15 @@ def cache(func):
     def wrapper(*args, **kwargs):
         if (func, args, kwargs) in CACHE_KEYS:
             return CACHE_VALUES[CACHE_KEYS.index((func, args, kwargs))]
-        else:
-            CACHE_KEYS.append((func, args, kwargs))
-            CACHE_VALUES.append(func(*args, **kwargs))
-            return CACHE_VALUES[-1]
+        CACHE_KEYS.append((func, args, kwargs))
+        CACHE_VALUES.append(func(*args, **kwargs))
+        return CACHE_VALUES[-1]
     return wrapper
+
+
+# @cache
+# def func1():
+#     return 3
+#
+#
+# print(func1())
