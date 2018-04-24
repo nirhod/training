@@ -1,4 +1,8 @@
-import datetime as dt
+from sqlalchemy import create_engine, func
+from sqlalchemy.orm import sessionmaker
+
+from config import DB_PATH
+from tables import BASE, EntryTable
 
 
 def index(data):
@@ -9,23 +13,27 @@ def index(data):
 
     :param data: A list of 'Entry' instances to index.
     """
-    pass
+    engine = create_engine(f'sqlite:///{DB_PATH}')
+    BASE.metadata.create_all(engine)
+    session = sessionmaker(bind=engine)()
+    for entry in data:
+        entry_line_table = EntryTable(ip=entry.ip, protocol=entry.protocol, timestamp=entry.timestamp)
+        session.add(entry_line_table)
+    session.commit()
 
 
 def get_device_histogram(ip, n):
     """
     Return the latest 'n' entries for the given 'ip'.
     """
-    return [
-        {'timestamp': dt.datetime.now(), 'protocol': 'DNS'}
-    ]
+    session = sessionmaker(bind=create_engine(f'sqlite:///{DB_PATH}'))()
+    query = session.query(EntryTable).filter_by(ip=ip).order_by(EntryTable.timestamp.desc()).limit(n)
+    return [{'timestamp': entry.timestamp, 'protocol': entry.protocol} for entry in query]
 
 
 def get_devices_status():
     """
     Return a list of every ip and the latest time it was seen it.
     """
-    return [
-        ('4.2.2.4', dt.datetime.now()),
-        ('8.8.8.8', dt.datetime.now())
-    ]
+    session = sessionmaker(bind=create_engine(f'sqlite:///{DB_PATH}'))()
+    return session.query(EntryTable.ip, func.max(EntryTable.timestamp)).group_by(EntryTable.ip).all()
