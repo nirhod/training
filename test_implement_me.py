@@ -35,13 +35,13 @@ def test_get_devices_status(dataset):
 
 @pytest.fixture(scope='session')
 def dataset():
-    yield list(datasets.s1narrow())
+    return list(datasets.s1narrow())
 
 
 @pytest.fixture()
 def session():
     engine = create_engine(f'sqlite:///{config.DB_PATH}')
-    yield sessionmaker(bind=engine)()
+    return sessionmaker(bind=engine)()
 
 
 @pytest.fixture(scope='session', autouse=True)
