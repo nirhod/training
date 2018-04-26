@@ -47,4 +47,3 @@ def session():
 @pytest.fixture(scope='session', autouse=True)
 def create_db(dataset):
     index(dataset)
-    yield
