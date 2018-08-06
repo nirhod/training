@@ -1,0 +1,146 @@
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 15%;
+    float: right;
+    align-items: center;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.sign-in {
+    background-color: #3b99ff;
+    color: white;
+    line-height: 2;
+    width: 35%;
+    text-align: center;
+}
+
+.header-button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.main {
+    position: fixed;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 6em;
+    height: 80px;
+    font-family: 'Product Sans', sans-serif;
+}
+
+#h0 {color: #3b99ff;}
+#h1 {color: red;}
+#h2 {color: #e6c222;}
+#h3 {color: #3b99ff;}
+#h4 {color: green;}
+#h5 {color: red;}
+
+input {
+    width: 100%;
+    line-height: 3;
+}
+
+.mic-button {
+    position: relative;
+    left: 95%;
+    transform: translate(0%, -110%);
+}
+
+.search-bar {
+    width: 200%;
+}
+
+.search-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    line-height: 2;
+}
+
+.search-button {
+    text-align: center;
+    font-weight: bold;
+    width: 48%;
+    height: 100%;
+    font-size: 0.9em;
+}
+
+.search-button:hover {
+    cursor: pointer;
+}
+
+.search-button-no-highlight {
+    color: dimgrey;
+    background-color: #f0eaeb;
+    border: 1px solid white;
+}
+
+.search-button-highlight {
+    color: black;
+    background-color: ghostwhite;
+    border: 1px solid darkgrey;
+}
+
+.languages {
+    width: 200%;
+    text-align: center;
+    font-size: 0.8em;
+    line-height: 6;
+}
+
+footer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: #e3dfe2;
+    line-height: 2.8;
+    left: 0;
+    position: absolute;
+    border-top: solid lightgrey 1px;
+    font-size: 0.9em;
+}
+
+.footer-last {
+    bottom: 0;
+}
+
+.footer-block {
+    display: flex;
+    justify-content: space-evenly;
+    width: 15%;
+}
+
+.footer-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.footer-country {
+    position: absolute;
+    bottom: 2.8em;
+}
+
+.footer-country-block {
+    display: flex;
+    justify-content: space-evenly;
+    width: 5%;
+}
