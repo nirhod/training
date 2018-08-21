@@ -37,7 +37,8 @@ class App extends React.Component<{}, State> {
     private nextSong = () => this.setState({
         currentSongIndex: (this.state.currentSongIndex + 1) % songsList.length});
     private prevSong = () => this.setState({
-        currentSongIndex: this.state.currentSongIndex !== 0 ? (this.state.currentSongIndex - 1) : songsList.length - 1});
+        currentSongIndex: this.state.currentSongIndex !== 0 ?
+            (this.state.currentSongIndex - 1) : songsList.length - 1});
 
 
 }
