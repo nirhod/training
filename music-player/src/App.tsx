@@ -18,7 +18,7 @@ class App extends React.Component<{}, State> {
                 <header className="header">
                     <h1>Music Player</h1>
                     <MusicController currentSongIndex={this.state.currentSongIndex}
-                                     nextSong={this.nextSong} prevSong={this.prevSong}/>
+                                     playNextSong={this.playNextSong} playPrevSong={this.playPrevSong}/>
                 </header>
                 <List
                     dataSource={songsList}
@@ -35,10 +35,10 @@ class App extends React.Component<{}, State> {
             <List.Item>{item.name}</List.Item>
     );
 
-    private nextSong = () => this.setState({
+    private playNextSong = () => this.setState({
         currentSongIndex: (this.state.currentSongIndex + 1) % songsList.length
     });
-    private prevSong = () => this.setState({
+    private playPrevSong = () => this.setState({
         currentSongIndex: this.state.currentSongIndex !== 0 ?
             (this.state.currentSongIndex - 1) : songsList.length - 1
     });

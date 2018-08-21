@@ -4,7 +4,7 @@ import {songsList} from './data';
 import {MusicControllerState, Song} from './types';
 
 
-export const MusicController = ({currentSongIndex, prevSong, nextSong}: MusicControllerState) => {
+export const MusicController = ({currentSongIndex, playPrevSong, playNextSong}: MusicControllerState) => {
     const currentSongName = getSongByIndex(currentSongIndex).name;
     return (
         <div>
@@ -15,8 +15,8 @@ export const MusicController = ({currentSongIndex, prevSong, nextSong}: MusicCon
             </audio>
             <br/>
             <Button.Group>
-                <Button onClick={prevSong}><Icon type="step-backward"/></Button>
-                <Button onClick={nextSong}><Icon type="step-forward"/></Button>
+                <Button onClick={playPrevSong}><Icon type="step-backward"/></Button>
+                <Button onClick={playNextSong}><Icon type="step-forward"/></Button>
             </Button.Group>
         </div>
     )
