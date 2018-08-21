@@ -1,5 +1,4 @@
 import { Button, Icon, List,} from 'antd';
-import 'antd/lib/list/style/css'
 import * as React from 'react';
 import './App.css';
 import { songsList } from './data';
@@ -45,16 +44,16 @@ class App extends React.Component<{}, State> {
 
 const MusicController = ({currentSongIndex, prevSong, nextSong}: MusicControllerState) => (
     <div>
-    <h2>{getSongByIndex(currentSongIndex).name}</h2>
-              <audio controls={true} key={currentSongIndex}>
-                  <source src={`http://localhost:3000/songs/${getSongByIndex(currentSongIndex).name}`} type="audio/mpeg"/>
-                  Your browser does not support the audio tag.
-              </audio>
-              <br/>
-              <Button.Group>
-                  <Button onClick={prevSong}><Icon type="step-backward" /></Button>
-                  <Button onClick={nextSong}><Icon type="step-forward" /></Button>
-              </Button.Group>
+            <h2>{getSongByIndex(currentSongIndex).name}</h2>
+            <audio controls={true} key={currentSongIndex}>
+              <source src={`/songs/${getSongByIndex(currentSongIndex).name}`} type="audio/mpeg"/>
+              Your browser does not support the audio tag.
+            </audio>
+            <br/>
+            <Button.Group>
+              <Button onClick={prevSong}><Icon type="step-backward" /></Button>
+              <Button onClick={nextSong}><Icon type="step-forward" /></Button>
+            </Button.Group>
     </div>
 );
 
