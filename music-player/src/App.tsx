@@ -12,7 +12,7 @@ class App extends React.Component<{}, State> {
         this.state = {currentSongIndex: 0};
     }
 
-    public render() {
+    render() {
         return (
             <div className="musicPlayer">
                 <header className="header">
@@ -29,24 +29,20 @@ class App extends React.Component<{}, State> {
         );
     }
 
-    private songToComponent = (item: Song) => (
+    songToComponent = (item: Song) => (
         this.state.currentSongIndex === item.index ?
             <List.Item><strong>{item.name}</strong></List.Item> :
             <List.Item>{item.name}</List.Item>
     );
 
-    private playNextSong = () => this.setState({
+    playNextSong = () => this.setState({
         currentSongIndex: (this.state.currentSongIndex + 1) % songsList.length
     });
-    private playPrevSong = () => this.setState({
+    playPrevSong = () => this.setState({
         currentSongIndex: this.state.currentSongIndex !== 0 ?
             (this.state.currentSongIndex - 1) : songsList.length - 1
     });
-
-
 }
 
 
-
 export default App;
-
