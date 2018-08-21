@@ -1,3 +1,6 @@
-export type State = { currentSongIndex: number};
+import {Dispatch} from 'redux';
+
+export type State = { currentSongIndex: number };
 export type Song = { name: string; index: number };
-export type MusicControllerState = {currentSongIndex: number; playPrevSong: () => void; playNextSong: () => void};
+export type MusicControllerProps = { currentSongIndex: number; dispatch: Dispatch};
+export type Action = { type: string }

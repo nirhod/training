@@ -1,10 +1,12 @@
 import {Button, Icon} from 'antd';
 import * as React from 'react';
 import {songsList} from './data';
-import {MusicControllerState, Song} from './types';
+import {MusicControllerProps, Song} from './types';
+import {playNextSongAction, playPrevSongAction} from './actions';
+import {connectComponentToCurrentSongIndex} from './utils';
 
 
-export const MusicController = ({currentSongIndex, playPrevSong, playNextSong}: MusicControllerState) => {
+const MusicController = ({currentSongIndex, dispatch}: MusicControllerProps) => {
     const currentSongName = getSongByIndex(currentSongIndex).name;
     return (
         <div>
@@ -15,8 +17,8 @@ export const MusicController = ({currentSongIndex, playPrevSong, playNextSong}: 
             </audio>
             <br/>
             <Button.Group>
-                <Button onClick={playPrevSong}><Icon type="step-backward"/></Button>
-                <Button onClick={playNextSong}><Icon type="step-forward"/></Button>
+                <Button onClick={() => dispatch(playPrevSongAction)}><Icon type="step-backward"/></Button>
+                <Button onClick={() => dispatch(playNextSongAction)}><Icon type="step-forward"/></Button>
             </Button.Group>
         </div>
     )
@@ -24,3 +26,7 @@ export const MusicController = ({currentSongIndex, playPrevSong, playNextSong}: 
 
 const getSongByIndex = (index: number): Song =>
     songsList.filter((song: Song) => song.index === index)[0];
+
+const ConnectedMusicController = connectComponentToCurrentSongIndex(MusicController);
+export {ConnectedMusicController as MusicController};
+
