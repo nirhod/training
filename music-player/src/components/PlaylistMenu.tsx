@@ -5,18 +5,22 @@ import {Dispatch} from 'redux';
 
 import {getChangePlaylistAction} from '../actions';
 import {State} from '../types';
+import {getPlaylists} from '../selectors';
 
-const PlaylistMenu = ({playlists, dispatch}: { playlists: {}; dispatch: Dispatch }) => (
+const PlaylistMenu = ({playlistsNames, dispatch}: { playlistsNames: string[]; dispatch: Dispatch }) => (
     <div className="menu">
         <MenuAntd defaultSelectedKeys={['All']}
                   onSelect={(item) => {dispatch(getChangePlaylistAction(item.key))}}>
 
-            {Object.keys(playlists).map((playlistName) =>
+            {playlistsNames.map((playlistName) =>
                 <MenuAntd.Item key={playlistName}>{playlistName}</MenuAntd.Item>)}
 
         </MenuAntd>
     </div>
 );
 
-const PlaylistMenuConnected = connect((state: State) => state)(PlaylistMenu);
+const PlaylistMenuConnected = connect((state: State): {playlistsNames: string[]} => ({
+    playlistsNames: Object.keys(getPlaylists(state))
+})
+)(PlaylistMenu);
 export {PlaylistMenuConnected as PlaylistMenu};

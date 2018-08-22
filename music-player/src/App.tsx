@@ -6,9 +6,10 @@ import {MusicController} from './components/MusicController';
 import {PlaylistMenu} from './components/PlaylistMenu';
 import {SongsList} from './components/SongsList';
 import {State} from './types';
+import {getCurrentPlaylist, getCurrentSongIndex} from './selectors';
 
 
-const App = ({currentSongIndex, currentPlaylist}: State) => {
+const App = ({currentSongIndex, currentPlaylist}: {currentSongIndex: number; currentPlaylist: string}) => {
     return (
         <div className="musicPlayer">
             <header className="header">
@@ -25,5 +26,8 @@ const App = ({currentSongIndex, currentPlaylist}: State) => {
 };
 
 
-const AppConnected = connect((state: State) => state)(App);
+const AppConnected = connect((state: State) => ({
+    currentSongIndex: getCurrentSongIndex(state),
+    currentPlaylist: getCurrentPlaylist(state)
+}))(App);
 export default AppConnected;

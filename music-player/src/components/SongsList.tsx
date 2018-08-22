@@ -6,20 +6,16 @@ import {songsNamesList} from '../data';
 import {State} from '../types';
 
 
-const SongsList = ({currentSongIndex, playlists, currentPlaylist}: State) => {
+const SongsList = ({songsToDisplay, currentSongIndex}: {songsToDisplay: string[]; currentSongIndex: number}) => {
     const songToComponent = (song: string, index: number) => (
         currentSongIndex === index ?
             <List.Item><strong>{song}</strong></List.Item> :
             <List.Item>{song}</List.Item>
     );
-
-    const getSongsByPlaylist = (playlist: string): [string] =>
-        playlists[playlist].map((index: number) => songsNamesList[index]);
-
     return (
         <div className="songsList">
             <List
-                dataSource={getSongsByPlaylist(currentPlaylist)}
+                dataSource={songsToDisplay}
                 renderItem={songToComponent}
                 bordered={true}
             />
@@ -27,5 +23,12 @@ const SongsList = ({currentSongIndex, playlists, currentPlaylist}: State) => {
     )
 };
 
-const SongsListConnected = connect((state: State) => state)(SongsList);
+const SongsListConnected = connect((state: State) => ({
+    songsToDisplay: getSongsByPlaylist(state.songsListState.currentPlaylist, state.songsListState.playlists),
+    currentSongIndex: state.songsListState.currentSongIndex
+}))(SongsList);
 export {SongsListConnected as SongsList};
+
+
+const getSongsByPlaylist = (playlist: string, playlists: {}): string[] =>
+    playlists[playlist].map((index: number) => songsNamesList[index]);
