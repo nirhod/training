@@ -1,12 +1,17 @@
-import {List,} from 'antd';
+import {List} from 'antd';
 import * as React from 'react';
+import {connect} from 'react-redux';
+
 import './App.css';
 import {songsList} from './data';
 import {MusicController} from './MusicController';
-import {connectComponentToCurrentSongIndex} from './utils'
+import {PlaylistMenu} from './PlaylistMenu';
+import {State} from './types';
 
 
-const App = ({currentSongIndex, currentPlaylist}: { currentSongIndex: number; currentPlaylist: string }) => {
+
+const App = ({currentSongIndex, currentPlaylist, playlists}:
+                 { currentSongIndex: number; currentPlaylist: string; playlists: {} }) => {
     const songToComponent = (song: string, index: number) => (
         currentSongIndex === index ?
             <List.Item><strong>{song}</strong></List.Item> :
@@ -18,18 +23,23 @@ const App = ({currentSongIndex, currentPlaylist}: { currentSongIndex: number; cu
             <header className="header">
                 <h1>Music Player</h1>
                 <h3>Playlist: {currentPlaylist}</h3>
-                <MusicController />
+                <MusicController/>
             </header>
-            <List
-                dataSource={songsList}
-                renderItem={songToComponent}
-                bordered={true}
-            />
+            <div className="main">
+                <PlaylistMenu />
+                <div className="songsList">
+                    <List
+                        dataSource={songsList}
+                        renderItem={songToComponent}
+                        bordered={true}
+                    />
+                </div>
+            </div>
         </div>
     );
 };
 
 
-const AppConnected = connectComponentToCurrentSongIndex(App);
+const AppConnected = connect((state: State) => state)(App);
 
 export default AppConnected;

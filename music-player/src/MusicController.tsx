@@ -1,9 +1,10 @@
 import {Button, Icon} from 'antd';
 import * as React from 'react';
+import {connect} from 'react-redux';
+
 import {songsList} from './data';
-import {MusicControllerProps} from './types';
+import {MusicControllerProps, State} from './types';
 import {playNextSongAction, playPrevSongAction} from './actions';
-import {connectComponentToCurrentSongIndex} from './utils';
 
 
 const MusicController = ({currentSongIndex, dispatch}: MusicControllerProps) => {
@@ -25,6 +26,6 @@ const MusicController = ({currentSongIndex, dispatch}: MusicControllerProps) => 
 };
 
 
-const ConnectedMusicController = connectComponentToCurrentSongIndex(MusicController);
+const ConnectedMusicController = connect((state: State) => state)(MusicController);
 export {ConnectedMusicController as MusicController};
 
