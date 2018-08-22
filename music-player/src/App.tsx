@@ -6,7 +6,7 @@ import {MusicController} from './MusicController';
 import {connectComponentToCurrentSongIndex} from './utils'
 
 
-const App = ({currentSongIndex}: { currentSongIndex: number }) => {
+const App = ({currentSongIndex, currentPlaylist}: { currentSongIndex: number; currentPlaylist: string }) => {
     const songToComponent = (song: string, index: number) => (
         currentSongIndex === index ?
             <List.Item><strong>{song}</strong></List.Item> :
@@ -17,6 +17,7 @@ const App = ({currentSongIndex}: { currentSongIndex: number }) => {
         <div className="musicPlayer">
             <header className="header">
                 <h1>Music Player</h1>
+                <h3>Playlist: {currentPlaylist}</h3>
                 <MusicController />
             </header>
             <List

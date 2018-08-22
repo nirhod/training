@@ -4,4 +4,4 @@ import * as React from 'react';
 
 
 export const connectComponentToCurrentSongIndex = (component: React.SFC<{currentSongIndex: number}>) =>
-    connect((state: State) => ({currentSongIndex: state.currentSongIndex}))(component);
+    connect((state: State) => ({...state}))(component);
