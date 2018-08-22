@@ -1,14 +1,15 @@
 import {Button, Icon} from 'antd';
+import {Dispatch} from 'redux';
 import * as React from 'react';
 import {connect} from 'react-redux';
 
-import {songsList} from '../data';
-import {MusicControllerProps, State} from '../types';
 import {playNextSongAction, playPrevSongAction} from '../actions';
+import {songsNamesList} from '../data';
+import {State} from '../types';
 
 
-const MusicController = ({currentSongIndex, dispatch}: MusicControllerProps) => {
-    const currentSongName = songsList[currentSongIndex];
+const MusicController = ({currentSongIndex, dispatch}: { currentSongIndex: number; dispatch: Dispatch }) => {
+    const currentSongName = songsNamesList[currentSongIndex];
     return (
         <div>
             <h2>{currentSongName}</h2>
@@ -28,4 +29,3 @@ const MusicController = ({currentSongIndex, dispatch}: MusicControllerProps) => 
 
 const ConnectedMusicController = connect((state: State) => state)(MusicController);
 export {ConnectedMusicController as MusicController};
-

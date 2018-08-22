@@ -8,10 +8,7 @@ import {SongsList} from './components/SongsList';
 import {State} from './types';
 
 
-const App = ({currentSongIndex, currentPlaylist}:
-                 { currentSongIndex: number; currentPlaylist: string }) => {
-
-
+const App = ({currentSongIndex, currentPlaylist}: State) => {
     return (
         <div className="musicPlayer">
             <header className="header">
@@ -29,5 +26,4 @@ const App = ({currentSongIndex, currentPlaylist}:
 
 
 const AppConnected = connect((state: State) => state)(App);
-
 export default AppConnected;

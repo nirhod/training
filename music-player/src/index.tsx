@@ -1,4 +1,4 @@
-import {songsList} from './data';
+import {songsNamesList} from './data';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
@@ -13,7 +13,7 @@ const store = createStore(reducer, {
     currentSongIndex: 0,
     currentPlaylist: 'All',
     playlists: {
-        All: songsList.map((name, index) => index),
+        All: songsNamesList.map((name, index) => index),
         'First Songs': [0, 1]
     }
 });

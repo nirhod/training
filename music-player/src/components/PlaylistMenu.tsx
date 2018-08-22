@@ -10,8 +10,10 @@ const PlaylistMenu = ({playlists, dispatch}: { playlists: {}; dispatch: Dispatch
     <div className="menu">
         <MenuAntd defaultSelectedKeys={['All']}
                   onSelect={(item) => {dispatch(getChangePlaylistAction(item.key))}}>
+
             {Object.keys(playlists).map((playlistName) =>
                 <MenuAntd.Item key={playlistName}>{playlistName}</MenuAntd.Item>)}
+
         </MenuAntd>
     </div>
 );
