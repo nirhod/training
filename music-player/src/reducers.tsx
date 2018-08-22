@@ -1,4 +1,4 @@
-import {playNextSongActionName, playPrevSongActionName} from './actions';
+import {playNextSongActionName, playPrevSongActionName, changePlaylistActioName} from './actions';
 import {songsList} from './data';
 import {State, Action} from './types';
 
@@ -14,6 +14,11 @@ const reducer = (state: State, action: Action) => {
             return {
                 ...state,
                 currentSongIndex: state.currentSongIndex !== 0 ? (state.currentSongIndex - 1) : songsList.length - 1
+            };
+        case  changePlaylistActioName:
+            return {
+                ...state,
+                currentPlaylist: action.newPlaylist
             };
         default:
             return state;

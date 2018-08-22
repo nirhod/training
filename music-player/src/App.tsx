@@ -1,22 +1,17 @@
-import {List} from 'antd';
 import * as React from 'react';
 import {connect} from 'react-redux';
 
 import './App.css';
-import {songsList} from './data';
+
 import {MusicController} from './MusicController';
 import {PlaylistMenu} from './PlaylistMenu';
+import {SongsList} from './SongsList';
 import {State} from './types';
 
 
+const App = ({currentSongIndex, currentPlaylist}:
+                 { currentSongIndex: number; currentPlaylist: string }) => {
 
-const App = ({currentSongIndex, currentPlaylist, playlists}:
-                 { currentSongIndex: number; currentPlaylist: string; playlists: {} }) => {
-    const songToComponent = (song: string, index: number) => (
-        currentSongIndex === index ?
-            <List.Item><strong>{song}</strong></List.Item> :
-            <List.Item>{song}</List.Item>
-    );
 
     return (
         <div className="musicPlayer">
@@ -26,14 +21,8 @@ const App = ({currentSongIndex, currentPlaylist, playlists}:
                 <MusicController/>
             </header>
             <div className="main">
-                <PlaylistMenu />
-                <div className="songsList">
-                    <List
-                        dataSource={songsList}
-                        renderItem={songToComponent}
-                        bordered={true}
-                    />
-                </div>
+                <PlaylistMenu/>
+                <SongsList/>
             </div>
         </div>
     );
