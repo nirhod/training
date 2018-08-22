@@ -24,7 +24,7 @@ const SongsList = ({songsToDisplay, currentSongIndex}: {songsToDisplay: string[]
 };
 
 const SongsListConnected = connect((state: State) => ({
-    songsToDisplay: getSongsByPlaylist(state.songsListState.currentPlaylist, state.songsListState.playlists),
+    songsToDisplay: getSongsByPlaylist(state.songsListState.currentPlaylistName, state.songsListState.playlists),
     currentSongIndex: state.songsListState.currentSongIndex
 }))(SongsList);
 export {SongsListConnected as SongsList};

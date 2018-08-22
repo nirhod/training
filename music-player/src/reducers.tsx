@@ -6,7 +6,7 @@ import {combineReducers} from 'redux';
 
 const initialSongsListState: SongsListState = {
     currentSongIndex: 0,
-    currentPlaylist: 'All',
+    currentPlaylistName: 'All',
     playlists: {
         All: songsNamesList.map((name, index) => index),
         'First Songs': [0, 1]
@@ -14,22 +14,28 @@ const initialSongsListState: SongsListState = {
 };
 
 const reducer = (songsListState: SongsListState = initialSongsListState, action: Action) => {
+    const {currentSongIndex, playlists, currentPlaylistName} = songsListState;
     switch (action.type) {
         case playNextSongActionName:
-            return {
-                ...songsListState,
-                currentSongIndex: (songsListState.currentSongIndex + 1) % songsNamesList.length
-            };
         case playPrevSongActionName:
+            const currentPlaylistArray = playlists[currentPlaylistName];
+            const songIndexInPlaylist = currentPlaylistArray.indexOf(currentSongIndex);
+            if (action.type === playNextSongActionName) {
+                return {
+                    ...songsListState,
+                    currentSongIndex: currentPlaylistArray[(songIndexInPlaylist + 1) % currentPlaylistArray.length]
+                };
+            }
             return {
                 ...songsListState,
-                currentSongIndex: songsListState.currentSongIndex !== 0 ?
-                    (songsListState.currentSongIndex - 1) : songsNamesList.length - 1
+                currentSongIndex: songIndexInPlaylist !== 0 ? currentPlaylistArray[(songIndexInPlaylist - 1)] :
+                    currentPlaylistArray[currentPlaylistArray.length - 1]
             };
         case  changePlaylistActioName:
             return {
                 ...songsListState,
-                currentPlaylist: action.newPlaylist
+                currentPlaylistName: action.newPlaylist,
+                currentSongIndex: playlists[action.newPlaylist][0]
             };
         default:
             return songsListState;
