@@ -2,8 +2,8 @@ import {List} from 'antd';
 import * as React from 'react';
 import {connect} from 'react-redux';
 
-import {songsList as songsListData} from './data';
-import {State} from './types';
+import {songsList as songsListData} from '../data';
+import {State} from '../types';
 
 
 const SongsList = ({currentSongIndex} : {currentSongIndex: number}) => {

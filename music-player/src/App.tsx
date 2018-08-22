@@ -2,10 +2,9 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 
 import './App.css';
-
-import {MusicController} from './MusicController';
-import {PlaylistMenu} from './PlaylistMenu';
-import {SongsList} from './SongsList';
+import {MusicController} from './components/MusicController';
+import {PlaylistMenu} from './components/PlaylistMenu';
+import {SongsList} from './components/SongsList';
 import {State} from './types';
 
 

@@ -3,8 +3,8 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 
-import {getChangePlaylistAction} from './actions';
-import {State} from './types';
+import {getChangePlaylistAction} from '../actions';
+import {State} from '../types';
 
 const PlaylistMenu = ({playlists, dispatch}: { playlists: {}; dispatch: Dispatch }) => (
     <div className="menu">

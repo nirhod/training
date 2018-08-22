@@ -2,9 +2,9 @@ import {Button, Icon} from 'antd';
 import * as React from 'react';
 import {connect} from 'react-redux';
 
-import {songsList} from './data';
-import {MusicControllerProps, State} from './types';
-import {playNextSongAction, playPrevSongAction} from './actions';
+import {songsList} from '../data';
+import {MusicControllerProps, State} from '../types';
+import {playNextSongAction, playPrevSongAction} from '../actions';
 
 
 const MusicController = ({currentSongIndex, dispatch}: MusicControllerProps) => {
