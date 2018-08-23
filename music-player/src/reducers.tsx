@@ -10,11 +10,11 @@ const initialSongsListState: SongsListState = {
   currentPlaylistName: 'All',
   playlists: {
     All: songsNamesList.map((name, index) => index),
-    'FirstSongs': [0, 1],
+    FirstSongs: [0, 1],
   },
 };
 
-const reducer = (songsListState: SongsListState = initialSongsListState, action: Action) => {
+const songsListStateReducer = (songsListState: SongsListState = initialSongsListState, action: Action) => {
   const { currentSongIndex, playlists, currentPlaylistName } = songsListState;
   switch (action.type) {
     case playNextSongActionName:
@@ -29,10 +29,12 @@ const reducer = (songsListState: SongsListState = initialSongsListState, action:
       }
       return {
         ...songsListState,
-        currentSongIndex: songIndexInPlaylist !== 0 ? currentPlaylistArray[(songIndexInPlaylist - 1)] :
-          currentPlaylistArray[currentPlaylistArray.length - 1],
+        currentSongIndex:
+          songIndexInPlaylist !== 0
+            ? currentPlaylistArray[songIndexInPlaylist - 1]
+            : currentPlaylistArray[currentPlaylistArray.length - 1],
       };
-    case  changePlaylistActioName:
+    case changePlaylistActioName:
       if (!(action.newPlaylist in playlists)) {
         return {
           ...songsListState,
@@ -49,8 +51,11 @@ const reducer = (songsListState: SongsListState = initialSongsListState, action:
   }
 };
 
-export const combinedReducers = combineReducers({ songsListState: reducer, router: routerReducer, viewport });
-
+export const combinedReducers = combineReducers({
+  songsListState: songsListStateReducer,
+  router: routerReducer,
+  viewport,
+});
 
 // Selectors:
 export const getLocation = (state: any) => {
