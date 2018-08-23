@@ -12,6 +12,9 @@ import {URLSync} from './forUrl/urlSync';
 
 const App = ({currentSongIndex, currentPlaylistName}: {currentSongIndex: number; currentPlaylistName: string}) => {
     console.log(URLSync);
+    if (currentSongIndex === -1) {
+      return <h1>Wrong URL!!!</h1>
+    }
     return (
         <div className="musicPlayer">
             <URLSync />
