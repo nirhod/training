@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {playNextSongAction, playPrevSongAction} from '../actions';
 import {songsNamesList} from '../data';
 import {State} from '../types';
-import {getCurrentSongIndex} from '../selectors';
+import {getCurrentSongIndex} from '../reducers';
 
 
 const MusicController = ({currentSongIndex, currentSongName, dispatch}:

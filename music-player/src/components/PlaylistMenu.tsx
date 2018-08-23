@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 
 import { getChangePlaylistAction } from '../actions';
 import { State } from '../types';
-import { getPlaylists } from '../selectors';
+import { getPlaylists } from '../reducers';
 
 const PlaylistMenu = ({ playlistsNames, dispatch }: { playlistsNames: string[]; dispatch: Dispatch }) => (
   <div className="menu">

@@ -1,6 +1,6 @@
-import { playNextSongActionName, playPrevSongActionName, changePlaylistActioName } from './actions';
+import { changePlaylistActioName, playNextSongActionName, playPrevSongActionName } from './actions';
 import { songsNamesList } from './data';
-import { SongsListState, Action } from './types';
+import { Action, SongsListState, State } from './types';
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 import { viewport } from './forUrl/viewport';
@@ -52,7 +52,11 @@ const reducer = (songsListState: SongsListState = initialSongsListState, action:
 export const combinedReducers = combineReducers({ songsListState: reducer, router: routerReducer, viewport });
 
 
+// Selectors:
 export const getLocation = (state: any) => {
   console.log(state);
   return state.router.location;
 };
+export const getCurrentSongIndex = (state: State) => state.songsListState.currentSongIndex;
+export const getCurrentPlaylistName = (state: State) => state.songsListState.currentPlaylistName;
+export const getPlaylists = (state: State) => state.songsListState.playlists;

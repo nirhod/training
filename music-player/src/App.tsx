@@ -6,8 +6,9 @@ import {MusicController} from './components/MusicController';
 import {PlaylistMenu} from './components/PlaylistMenu';
 import {SongsList} from './components/SongsList';
 import {State} from './types';
-import {getCurrentPlaylistName, getCurrentSongIndex} from './selectors';
+import {getCurrentPlaylistName} from './reducers';
 import {URLSync} from './forUrl/urlSync';
+import { getCurrentSongIndex } from './reducers';
 
 
 const App = ({currentSongIndex, currentPlaylistName}: {currentSongIndex: number; currentPlaylistName: string}) => {
