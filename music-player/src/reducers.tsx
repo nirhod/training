@@ -59,7 +59,6 @@ export const combinedReducers = combineReducers({
 
 // Selectors:
 export const getLocation = (state: any) => {
-  console.log(state);
   return state.router.location;
 };
 export const getCurrentSongIndex = (state: State) => state.songsListState.currentSongIndex;
