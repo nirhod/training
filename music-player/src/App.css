@@ -5,3 +5,26 @@ header {
     text-align: center;
     margin: 2em;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.main {
+    display: flex;
+}
+
+.menu {
+    width: 10%;
+}
+
+.songsList {
+    width: 90%;
+}
+
+.add-playlist-button {
+    width: 70%;
+    left: 15%;
+}

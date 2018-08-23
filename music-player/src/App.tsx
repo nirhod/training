@@ -7,11 +7,14 @@ import {PlaylistMenu} from './components/PlaylistMenu';
 import {SongsList} from './components/SongsList';
 import {State} from './types';
 import {getCurrentPlaylistName, getCurrentSongIndex} from './selectors';
+import {URLSync} from './forUrl/urlSync';
 
 
 const App = ({currentSongIndex, currentPlaylistName}: {currentSongIndex: number; currentPlaylistName: string}) => {
+    console.log(URLSync);
     return (
         <div className="musicPlayer">
+
             <header className="header">
                 <h1>Music Player</h1>
                 <h3>Playlist: {currentPlaylistName}</h3>

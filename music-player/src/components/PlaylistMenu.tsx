@@ -1,4 +1,4 @@
-import {Menu as MenuAntd} from 'antd';
+import {Button, Icon, Menu as MenuAntd} from 'antd';
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
@@ -11,11 +11,12 @@ const PlaylistMenu = ({playlistsNames, dispatch}: { playlistsNames: string[]; di
     <div className="menu">
         <MenuAntd defaultSelectedKeys={['All']}
                   onSelect={(item) => {dispatch(getChangePlaylistAction(item.key))}}>
-
+        <MenuAntd.ItemGroup title="Playlists">
             {playlistsNames.map((playlistName) =>
                 <MenuAntd.Item key={playlistName}>{playlistName}</MenuAntd.Item>)}
-
+        </MenuAntd.ItemGroup>
         </MenuAntd>
+        <Button className="add-playlist-button"><Icon type="plus-square" /></Button>
     </div>
 );
 
