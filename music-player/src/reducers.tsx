@@ -3,6 +3,7 @@ import {songsNamesList} from './data';
 import {SongsListState, Action} from './types';
 import {routerReducer} from 'react-router-redux';
 import {combineReducers} from 'redux';
+import {viewport} from './forUrl/viewport';
 
 const initialSongsListState: SongsListState = {
     currentSongIndex: 0,
@@ -42,4 +43,10 @@ const reducer = (songsListState: SongsListState = initialSongsListState, action:
     }
 };
 
-export const combinedReducers = combineReducers({songsListState: reducer, router: routerReducer});
+export const combinedReducers = combineReducers({songsListState: reducer, router: routerReducer, viewport});
+
+
+export const getLocation = (state: any) => {
+    console.log(state);
+    return state.router.location;
+};

@@ -14,7 +14,7 @@ const App = ({currentSongIndex, currentPlaylistName}: {currentSongIndex: number;
     console.log(URLSync);
     return (
         <div className="musicPlayer">
-
+            <URLSync />
             <header className="header">
                 <h1>Music Player</h1>
                 <h3>Playlist: {currentPlaylistName}</h3>
