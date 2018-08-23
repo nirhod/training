@@ -36,7 +36,6 @@ const reducer = (songsListState: SongsListState = initialSongsListState, action:
       if (!(action.newPlaylist in playlists)) {
         return {
           ...songsListState,
-          currentPlaylistName: action.newPlaylist,
           currentSongIndex: -1,
         };
       }
