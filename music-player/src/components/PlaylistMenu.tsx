@@ -15,15 +15,12 @@ const PlaylistMenu = ({ playlistsNames, dispatch }: { playlistsNames: string[]; 
         dispatch(getChangePlaylistAction(item.key));
       }}
     >
-      <MenuAntd.ItemGroup title="Playlists">
+      <MenuAntd.ItemGroup title={menuHeader}>
         {playlistsNames.map(playlistName => (
           <MenuAntd.Item key={playlistName}>{playlistName}</MenuAntd.Item>
         ))}
       </MenuAntd.ItemGroup>
     </MenuAntd>
-    <Button className="add-playlist-button">
-      <Icon type="plus-square" />
-    </Button>
   </div>
 );
 
@@ -33,3 +30,12 @@ const PlaylistMenuConnected = connect(
   }),
 )(PlaylistMenu);
 export { PlaylistMenuConnected as PlaylistMenu };
+
+const menuHeader = (
+  <div className="menu-header">
+    Playlists
+    <Button>
+      <Icon type="plus-square"/>
+    </Button>
+  </div>
+);

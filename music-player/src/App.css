@@ -24,7 +24,7 @@ body {
     width: 90%;
 }
 
-.add-playlist-button {
-    width: 70%;
-    left: 15%;
+.menu-header {
+    display: flex;
+    justify-content: space-between;
 }
