@@ -1,9 +1,10 @@
-import { Button, Icon, Menu as MenuAntd } from 'antd';
+import { Button, Icon, Menu as MenuAntd} from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { getChangePlaylistAction } from '../actions';
+import { addPlaylistOpenWindowAction, getChangePlaylistAction } from '../actions';
+import { AddPlaylist } from './AddPlaylist';
 import { State } from '../types';
 import { getPlaylists } from '../reducers';
 
@@ -15,12 +16,13 @@ const PlaylistMenu = ({ playlistsNames, dispatch }: { playlistsNames: string[]; 
         dispatch(getChangePlaylistAction(item.key));
       }}
     >
-      <MenuAntd.ItemGroup title={menuHeader}>
+      <MenuAntd.ItemGroup title={menuHeader(dispatch)}>
         {playlistsNames.map(playlistName => (
           <MenuAntd.Item key={playlistName}>{playlistName}</MenuAntd.Item>
         ))}
       </MenuAntd.ItemGroup>
     </MenuAntd>
+    <AddPlaylist/>
   </div>
 );
 
@@ -31,11 +33,11 @@ const PlaylistMenuConnected = connect(
 )(PlaylistMenu);
 export { PlaylistMenuConnected as PlaylistMenu };
 
-const menuHeader = (
+const menuHeader = (dispatch: Dispatch) => (
   <div className="menu-header">
     Playlists
-    <Button>
-      <Icon type="plus-square"/>
+    <Button onClick={() => dispatch(addPlaylistOpenWindowAction)}>
+      <Icon type="plus-square" />
     </Button>
   </div>
 );

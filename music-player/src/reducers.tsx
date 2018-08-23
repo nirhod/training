@@ -1,4 +1,5 @@
-import { changePlaylistActioName, playNextSongActionName, playPrevSongActionName } from './actions';
+import { changePlaylistActioName, playNextSongActionName, playPrevSongActionName, addPlaylistCancelActionName,
+  addPlaylistSaveActionName, addPlaylistOpenWindowActionName } from './actions';
 import { songsNamesList } from './data';
 import { Action, SongsListState, State } from './types';
 import { routerReducer } from 'react-router-redux';
@@ -12,6 +13,7 @@ const initialSongsListState: SongsListState = {
     All: songsNamesList.map((name, index) => index),
     FirstSongs: [0, 1],
   },
+  openAddPlaylistWindow: false
 };
 
 const songsListStateReducer = (songsListState: SongsListState = initialSongsListState, action: Action) => {
@@ -46,8 +48,26 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         currentPlaylistName: action.newPlaylist,
         currentSongIndex: playlists[action.newPlaylist][0],
       };
+    case addPlaylistOpenWindowActionName:
+      return {
+        ...songsListState,
+        openAddPlaylistWindow: true
+      };
+    case addPlaylistCancelActionName:
+      return {
+        ...songsListState,
+        openAddPlaylistWindow: false
+      };
+    case addPlaylistSaveActionName:
+      return {
+        ...songsListState,
+        openAddPlaylistWindow: false,
+        playlists: {...songsListState.playlists, [action.newPlaylist]: []}
+      };
+
     default:
       return songsListState;
+
   }
 };
 
@@ -64,3 +84,4 @@ export const getLocation = (state: any) => {
 export const getCurrentSongIndex = (state: State) => state.songsListState.currentSongIndex;
 export const getCurrentPlaylistName = (state: State) => state.songsListState.currentPlaylistName;
 export const getPlaylists = (state: State) => state.songsListState.playlists;
+export const getOpenAddPlaylistWindow = (state: State) => state.songsListState.openAddPlaylistWindow;
