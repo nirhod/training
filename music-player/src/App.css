@@ -29,10 +29,26 @@ body {
     justify-content: space-between;
 }
 
+.song {
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+}
+
+
 .song-button {
     visibility: hidden;
 }
 
-.song:hover .song-button{
+.song-item:hover .song-button{
     visibility: visible;
+}
+
+.add-song-button {
+    color: green;
+}
+
+.remove-song-button {
+    color: red;
+    margin-left: 1em;
 }
