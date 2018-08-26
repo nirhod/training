@@ -1,21 +1,30 @@
 import { List, Button } from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import {Dispatch} from 'redux';
 
 import { songsNamesList } from '../data';
 import { State } from '../types';
+import {AddSongToPlaylist} from './AddSongToPlaylist';
+import {addSongToPlaylistOpenWindowAction} from '../actions';
 
 
-const SongsList = ({ songsToDisplay, currentSongIndex }: { songsToDisplay: string[]; currentSongIndex: number }) => {
+const SongsList = ({ songsToDisplay, currentSongIndex, dispatch }:
+                     { songsToDisplay: string[]; currentSongIndex: number; dispatch: Dispatch}) => {
   const songToComponent = (song: string, index: number) => (
     <List.Item className="song-item">
       <div className="song">
+
         {currentSongIndex === index ? <strong>{song}</strong> : song}
 
         <div className="song-buttons">
-          <Button className="add-song-button song-button" shape="circle" icon="plus" size="small"/>
+          <Button className="add-song-button song-button" shape="circle" icon="plus" size="small"
+          onClick={() => dispatch(addSongToPlaylistOpenWindowAction(index))}/>
           <Button className="remove-song-button song-button" shape="circle" icon="minus" size="small"/>
         </div>
+
+        <AddSongToPlaylist/>
+
       </div>
 
     </List.Item>
