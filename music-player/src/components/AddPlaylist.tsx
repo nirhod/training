@@ -18,14 +18,24 @@ class AddPlaylist extends React.Component<{show: boolean; dispatch: Dispatch}> {
   render = () => (
     <div>
       <Modal title="Add New Playlist" okText="Save" visible={this.props.show}
-             onOk={() => this.props.dispatch(addPlaylistSaveAction(this.myRef.current.input.value))}
-             onCancel={() => this.props.dispatch(addPlaylistCancelAction)}>
+             onOk={this.savePlaylist}
+             onCancel={this.cancelSavePlaylist}>
 
         <Input placeholder="PlaylistName" ref={this.myRef} />
 
       </Modal>
     </div>
   );
+
+  savePlaylist = () => {
+    this.props.dispatch(addPlaylistSaveAction(this.myRef.current.input.value));
+    this.myRef.current.input.value = '';
+  };
+
+  cancelSavePlaylist = () => {
+    this.props.dispatch(addPlaylistCancelAction);
+    this.myRef.current.input.value = '';
+  }
 }
 
 const ConnectedAddPlaylist = connect((state: State) =>
