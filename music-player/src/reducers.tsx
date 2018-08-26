@@ -6,7 +6,7 @@ import {
   addPlaylistSaveActionName,
   addPlaylistOpenWindowActionName,
   addSongToPlaylistOpenWindowActionName,
-  // addSongToPlaylistCloseWindowActionName,
+  addSongToPlaylistCloseWindowActionName
 } from './actions';
 import { songsNamesList } from './data';
 import { Action, SongsListState, State } from './types';
@@ -81,13 +81,11 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         openAddSongToPlaylistWindow: true,
         songIndexToChangePlaylist: action.songIndexToChangePlaylist
       };
-    // case addSongToPlaylistCloseWindowActionName:
-    //   return {
-    //     // TODO Add support for adding new song
-    //     ...songsListState,
-    //     openAddSongToPlaylistWindow: false,
-    //     openRemoveSongFromPlaylistWindow: false
-    //   };
+    case addSongToPlaylistCloseWindowActionName:
+      return {
+        ...songsListState,
+        openAddSongToPlaylistWindow: false
+      };
 
     default:
       return songsListState;

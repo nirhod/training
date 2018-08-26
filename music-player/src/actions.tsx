@@ -5,7 +5,7 @@ export const addPlaylistOpenWindowActionName = 'ADD_PLAYLIST_OPEN_WINDOW';
 export const addPlaylistSaveActionName = 'ADD_PLAYLIST_SAVE';
 export const addPlaylistCancelActionName = 'ADD_PLAYLIST_CANCEL';
 export const addSongToPlaylistOpenWindowActionName = 'ADD_SONG_TO_PLAYLIST_OPEN_WINDOW';
-// export const addSongToPlaylistCloseWindowActionName = 'CHOOSE_PLAYLIST_CLOSE_WINDOW';
+export const addSongToPlaylistCloseWindowActionName = 'CLOSE_ADD_SONG_TO_PLAYLIST_OPEN_WINDOW';
 
 
 export const playPrevSongAction = { type: playPrevSongActionName };
@@ -16,7 +16,4 @@ export const addPlaylistSaveAction = (newPlaylist: string) => ({ type: addPlayli
 export const addPlaylistCancelAction = { type: addPlaylistCancelActionName };
 export const addSongToPlaylistOpenWindowAction = (songIndexToChangePlaylist: number) =>
   ({ type: addSongToPlaylistOpenWindowActionName, songIndexToChangePlaylist });
-// export const choosePlaylistCloseWindowAction = (playlistName: string) => ({
-//   type: addSongToPlaylistCloseWindowActionName,
-//   playlistName,
-// });
+export const addSongToPlaylistCloseWindowAction = {type: addSongToPlaylistCloseWindowActionName};
