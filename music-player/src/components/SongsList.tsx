@@ -1,4 +1,4 @@
-import {List} from 'antd';
+import {List, Button} from 'antd';
 import * as React from 'react';
 import {connect} from 'react-redux';
 
@@ -8,9 +8,10 @@ import {State} from '../types';
 
 const SongsList = ({songsToDisplay, currentSongIndex}: {songsToDisplay: string[]; currentSongIndex: number}) => {
     const songToComponent = (song: string, index: number) => (
-        currentSongIndex === index ?
-            <List.Item><strong>{song}</strong></List.Item> :
-            <List.Item>{song}</List.Item>
+            <List.Item className="song">'
+              {currentSongIndex === index ? <strong>{song}</strong> : song}
+            <Button className="add-song-button"/>
+            </List.Item>
     );
     return (
         <div className="songsList">

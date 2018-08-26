@@ -28,3 +28,11 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
+.add-song-button {
+    visibility: hidden;
+}
+
+.song:hover .add-song-button{
+    visibility: visible;
+}
