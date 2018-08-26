@@ -8,23 +8,20 @@ import { getPlaylists, getOpenAddSongToPlaylistWindow, getSongIndexToChangePlayl
 import {addSongToPlaylistCloseWindowAction} from '../actions';
 
 
-class AddSongToPlaylist extends React.Component<{ playlists: {}; show: boolean; songIndexToChangePlaylist: number;
+class AddSongToPlaylist extends React.Component<{ playlistsNotIncludeSongIndex: string[]; show: boolean;
 dispatch: Dispatch;}> {
 
   render = () => {
-    const { playlists, show, songIndexToChangePlaylist, dispatch } = this.props;
+    const { playlistsNotIncludeSongIndex, show, dispatch } = this.props;
     const sendActionCloseWindow = () => dispatch(addSongToPlaylistCloseWindowAction);
     return (
       <Modal title="Add Song to Playlist" visible={show} onOk={sendActionCloseWindow} onCancel={sendActionCloseWindow}>
-        <div className="add-song-to-playlist-buttons">
-          {getPlaylistsNotIncludeSongIndex(playlists, songIndexToChangePlaylist).
-            map(playlist => (
+          {playlistsNotIncludeSongIndex.map((playlist: string) => (
               <div key={playlist}>
                 <Button className="add-song-to-playlist-button">{playlist}</Button>
                 <br/>
               </div>
               ))}
-        </div>
       </Modal>
     );
   };
@@ -36,9 +33,9 @@ const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number) => (
 
 
 const mapStateToProps = (state: State) => ({
-  playlists: getPlaylists(state),
+  playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(getPlaylists(state),
+    getSongIndexToChangePlaylist(state)),
   show: getOpenAddSongToPlaylistWindow(state),
-  songIndexToChangePlaylist: getSongIndexToChangePlaylist(state),
 });
 
 const ConnectedAddSongToPlaylist = connect(mapStateToProps)(AddSongToPlaylist);
