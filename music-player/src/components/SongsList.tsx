@@ -8,9 +8,12 @@ import {State} from '../types';
 
 const SongsList = ({songsToDisplay, currentSongIndex}: {songsToDisplay: string[]; currentSongIndex: number}) => {
     const songToComponent = (song: string, index: number) => (
-            <List.Item className="song">'
+            <List.Item className="song">
               {currentSongIndex === index ? <strong>{song}</strong> : song}
-            <Button className="add-song-button"/>
+
+              <Button className="add-song-button song-button" shape="circle" icon="plus" size="small"/>
+              <Button className="remove-song-button song-button" shape="circle" icon="minus" size="small"/>
+
             </List.Item>
     );
     return (

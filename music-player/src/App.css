@@ -29,10 +29,10 @@ body {
     justify-content: space-between;
 }
 
-.add-song-button {
+.song-button {
     visibility: hidden;
 }
 
-.song:hover .add-song-button{
+.song:hover .song-button{
     visibility: visible;
 }

@@ -1,4 +1,4 @@
-import { Button, Icon, Menu as MenuAntd} from 'antd';
+import { Button, Menu as MenuAntd} from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -36,8 +36,6 @@ export { PlaylistMenuConnected as PlaylistMenu };
 const menuHeader = (dispatch: Dispatch) => (
   <div className="menu-header">
     Playlists
-    <Button onClick={() => dispatch(addPlaylistOpenWindowAction)}>
-      <Icon type="plus-square" />
-    </Button>
+    <Button onClick={() => dispatch(addPlaylistOpenWindowAction)} icon="plus-square"/>
   </div>
 );
