@@ -35,13 +35,9 @@ body {
     justify-content: space-between;
 }
 
-
-#add-song-button, #remove-song-button {
+.song-item .song-button {
     transition-delay: 0s;
     transition-duration: 0s;
-}
-
-.song-button {
     visibility: hidden;
 }
 
@@ -49,11 +45,11 @@ body {
     visibility: visible;
 }
 
-#add-song-button {
+.add-song-button {
     color: green;
 }
 
-#remove-song-button {
+.remove-song-button {
     color: red;
     margin-left: 1em;
 }
