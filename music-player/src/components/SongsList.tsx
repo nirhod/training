@@ -1,34 +1,43 @@
 import { List, Button } from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import {Dispatch} from 'redux';
+import { Dispatch } from 'redux';
 
 import { songsNamesList } from '../data';
 import { State } from '../types';
-import {AddSongToPlaylist} from './AddSongToPlaylist';
-import {addSongToPlaylistOpenWindowAction} from '../actions';
+import { AddSongToPlaylist } from './AddSongToPlaylist';
+import { addSongToPlaylistOpenWindowAction } from '../actions';
+import { getPlaylists, getCurrentPlaylistName, getCurrentSongIndex } from '../reducers';
 
 
-const SongsList = ({ songsToDisplay, currentSongIndex, dispatch }:
-                     { songsToDisplay: string[]; currentSongIndex: number; dispatch: Dispatch}) => {
-  const songToComponent = (song: string, index: number) => (
-    <List.Item className="song-item">
-      <div className="song">
+const SongsList = ({ songsToDisplay, currentSongIndex, dispatch, songsIndices }:
+                     {
+                       songsToDisplay: string[];
+                       currentSongIndex: number;
+                       dispatch: Dispatch;
+                       songsIndices: number[];
+                     }) => {
+  const songToComponent = (song: string, indexInPlaylist: number) => {
+    const realIndex = songsIndices[indexInPlaylist];
+    return (
+      <List.Item className="song-item">
+        <div className="song">
 
-        {currentSongIndex === index ? <strong>{song}</strong> : song}
+          {currentSongIndex === realIndex ? <strong>{song}</strong> : song}
 
-        <div className="song-buttons">
-          <Button className="add-song-button song-button" shape="circle" icon="plus" size="small"
-          onClick={() => dispatch(addSongToPlaylistOpenWindowAction(index))}/>
-          <Button className="remove-song-button song-button" shape="circle" icon="minus" size="small"/>
+          <div className="song-buttons">
+            <Button className="add-song-button song-button" shape="circle" icon="plus" size="small"
+                    onClick={() => dispatch(addSongToPlaylistOpenWindowAction(realIndex))}/>
+            <Button className="remove-song-button song-button" shape="circle" icon="minus" size="small"/>
+          </div>
+
+          <AddSongToPlaylist/>
+
         </div>
 
-        <AddSongToPlaylist/>
-
-      </div>
-
-    </List.Item>
-  );
+      </List.Item>
+    );
+  };
   return (
     <div className="songsList">
       <List
@@ -40,10 +49,17 @@ const SongsList = ({ songsToDisplay, currentSongIndex, dispatch }:
   );
 };
 
-const SongsListConnected = connect((state: State) => ({
-  songsToDisplay: getSongsByPlaylist(state.songsListState.currentPlaylistName, state.songsListState.playlists),
-  currentSongIndex: state.songsListState.currentSongIndex,
-}))(SongsList);
+const mapStateToProps = (state: State) => {
+  const currentPlaylistName = getCurrentPlaylistName(state);
+  const playlists = getPlaylists(state);
+  return ({
+    songsToDisplay: getSongsByPlaylist(currentPlaylistName, playlists),
+    currentSongIndex: getCurrentSongIndex(state),
+    songsIndices: playlists[currentPlaylistName],
+  });
+};
+
+const SongsListConnected = connect(mapStateToProps)(SongsList);
 export { SongsListConnected as SongsList };
 
 

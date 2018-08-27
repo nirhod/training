@@ -8,4 +8,4 @@ export type SongsListState = {
   openRemoveSongFromPlaylistWindow: boolean;
   songIndexToChangePlaylist: number;
 };
-export type Action = { type: string; newPlaylist: string; songIndexToChangePlaylist: number };
+export type Action = { type: string; newPlaylist: string; songIndexToChangePlaylist: number; playlist: string };

@@ -6,7 +6,8 @@ import {
   addPlaylistSaveActionName,
   addPlaylistOpenWindowActionName,
   addSongToPlaylistOpenWindowActionName,
-  addSongToPlaylistCloseWindowActionName
+  addSongToPlaylistCloseWindowActionName,
+  addSongToPlaylistActionName
 } from './actions';
 import { songsNamesList } from './data';
 import { Action, SongsListState, State } from './types';
@@ -84,7 +85,19 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
     case addSongToPlaylistCloseWindowActionName:
       return {
         ...songsListState,
-        openAddSongToPlaylistWindow: false
+        openAddSongToPlaylistWindow: false,
+        songIndexToChangePlaylist: -1,
+      };
+    case addSongToPlaylistActionName:
+      console.log(songsListState);
+      return {
+        ...songsListState,
+        openAddSongToPlaylistWindow: false,
+        songIndexToChangePlaylist: -1,
+        playlists: {
+          ...songsListState.playlists,
+          [action.playlist]: [...songsListState.playlists[action.playlist], songsListState.songIndexToChangePlaylist],
+        }
       };
 
     default:
