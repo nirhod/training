@@ -11,12 +11,13 @@ import { getAddSongToPlaylistOpenWindowAction } from '../actions';
 import { getPlaylists, getCurrentPlaylistName, getCurrentSongIndex } from '../reducers';
 
 
-const SongsList = ({ songsToDisplay, currentSongIndex, dispatch, songsIndices }:
+const SongsList = ({ songsToDisplay, currentSongIndex, dispatch, songsIndices, currentPlaylistName }:
                      {
                        songsToDisplay: string[];
                        currentSongIndex: number;
                        dispatch: Dispatch;
                        songsIndices: number[];
+                       currentPlaylistName: string;
                      }) => {
   const songToComponent = (song: string, indexInPlaylist: number) => {
     const realIndex = songsIndices[indexInPlaylist];
@@ -29,8 +30,9 @@ const SongsList = ({ songsToDisplay, currentSongIndex, dispatch, songsIndices }:
           <div className="song-buttons">
             <Button className="add-song-button song-button" shape="circle" icon="plus" size="small"
                     onClick={() => dispatch(getAddSongToPlaylistOpenWindowAction(realIndex))}/>
+            {currentPlaylistName === 'All' ? '' :
             <Button className="remove-song-button song-button" shape="circle" icon="minus" size="small"
-                    onClick={() => showDeleteConfirm(dispatch, realIndex)}/>
+                    onClick={() => showDeleteConfirm(dispatch, realIndex)}/>}
           </div>
 
           <AddSongToPlaylist/>
@@ -58,6 +60,7 @@ const mapStateToProps = (state: State) => {
     songsToDisplay: getSongsByPlaylist(currentPlaylistName, playlists),
     currentSongIndex: getCurrentSongIndex(state),
     songsIndices: playlists[currentPlaylistName],
+    currentPlaylistName
   });
 };
 
