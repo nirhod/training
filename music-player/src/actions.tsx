@@ -13,7 +13,7 @@ export const playPrevSongAction = { type: playPrevSongActionName };
 export const playNextSongAction = { type: playNextSongActionName };
 export const getChangePlaylistAction = (newPlaylist: string) => ({ type: changePlaylistActioName, newPlaylist });
 export const addPlaylistOpenWindowAction = { type: addPlaylistOpenWindowActionName };
-export const addPlaylistSaveAction = (newPlaylist: string) => ({ type: addPlaylistSaveActionName, newPlaylist });
+export const getAddPlaylistSaveAction = (newPlaylist: string) => ({ type: addPlaylistSaveActionName, newPlaylist });
 export const addPlaylistCancelAction = { type: addPlaylistCancelActionName };
 export const getAddSongToPlaylistOpenWindowAction = (songIndexToChangePlaylist: number) => ({
   type: addSongToPlaylistOpenWindowActionName,

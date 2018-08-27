@@ -3,12 +3,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { addPlaylistCancelAction, addPlaylistSaveAction } from '../actions';
+import { addPlaylistCancelAction, getAddPlaylistSaveAction } from '../actions';
 import { getOpenAddPlaylistWindow } from '../reducers';
 import { State } from '../types';
 
 class AddPlaylist extends React.Component<{ show: boolean; dispatch: Dispatch }> {
-  inputRef: any;
+  inputRef: React.RefObject<any>;
 
   constructor(props: any) {
     super(props);
@@ -34,7 +34,7 @@ class AddPlaylist extends React.Component<{ show: boolean; dispatch: Dispatch }>
     if (!inputValue) {
       return;
     }
-    this.props.dispatch(addPlaylistSaveAction(inputValue));
+    this.props.dispatch(getAddPlaylistSaveAction(inputValue));
     this.inputRef.current.input.value = '';
   };
 
