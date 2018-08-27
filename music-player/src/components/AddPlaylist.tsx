@@ -30,7 +30,11 @@ class AddPlaylist extends React.Component<{ show: boolean; dispatch: Dispatch }>
   );
 
   savePlaylist = () => {
-    this.props.dispatch(addPlaylistSaveAction(this.inputRef.current.input.value));
+    const inputValue = this.inputRef.current.input.value;
+    if (!inputValue) {
+      return;
+    }
+    this.props.dispatch(addPlaylistSaveAction(inputValue));
     this.inputRef.current.input.value = '';
   };
 
