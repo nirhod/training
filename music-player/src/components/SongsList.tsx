@@ -32,7 +32,8 @@ const SongsList = ({
 
           <div className="song-buttons">
             <Button
-              className="add-song-button song-button"
+              id="add-song-button"
+              className="song-button"
               shape="circle"
               icon="plus"
               size="small"
@@ -42,7 +43,8 @@ const SongsList = ({
               ''
             ) : (
               <Button
-                className="remove-song-button song-button"
+                id="remove-song-button"
+                className="song-button"
                 shape="circle"
                 icon="minus"
                 size="small"
