@@ -17,9 +17,10 @@ class AddSongToPlaylist extends React.Component<{
     const { playlistsNotIncludeSongIndex, show, dispatch } = this.props;
     const sendActionCloseWindow = () => dispatch(addSongToPlaylistCloseWindowAction);
     return (
-      <Modal title="Add Song to Playlist" visible={show} onOk={sendActionCloseWindow} onCancel={sendActionCloseWindow}>
+      <Modal title="Add Song to Playlist" visible={show} onCancel={sendActionCloseWindow}
+             footer={[<Button key="ok" type="primary" onClick={sendActionCloseWindow}>OK</Button>]}>
         {!show ? '' :
-          playlistsNotIncludeSongIndex.length === 0 ? 'All playlist have the song.' :
+          playlistsNotIncludeSongIndex.length === 0 ? 'All playlists have the song.' :
           playlistsNotIncludeSongIndex.map((playlist: string) => (
             <div key={playlist}>
               <Button className="add-song-to-playlist-button"
