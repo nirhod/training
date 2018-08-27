@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 
 import { State } from '../types';
 import { getPlaylists, getOpenAddSongToPlaylistWindow, getSongIndexToChangePlaylist } from '../reducers';
-import { addSongToPlaylistCloseWindowAction, addSongToPlaylistAction } from '../actions';
+import { addSongToPlaylistCloseWindowAction, getAddSongToPlaylistAction } from '../actions';
 
 
 class AddSongToPlaylist extends React.Component<{
@@ -24,7 +24,7 @@ class AddSongToPlaylist extends React.Component<{
           playlistsNotIncludeSongIndex.map((playlist: string) => (
             <div key={playlist}>
               <Button className="add-song-to-playlist-button"
-                      onClick={() => dispatch(addSongToPlaylistAction(playlist))}>
+                      onClick={() => dispatch(getAddSongToPlaylistAction(playlist))}>
                 {playlist}
               </Button>
               <br/>

@@ -7,7 +7,8 @@ import {
   addPlaylistOpenWindowActionName,
   addSongToPlaylistOpenWindowActionName,
   addSongToPlaylistCloseWindowActionName,
-  addSongToPlaylistActionName
+  addSongToPlaylistActionName,
+  removeSongFromPlaylistOkActionName
 } from './actions';
 import { songsNamesList } from './data';
 import { Action, SongsListState, State } from './types';
@@ -24,7 +25,7 @@ const initialSongsListState: SongsListState = {
   },
   openAddPlaylistWindow: false,
   openAddSongToPlaylistWindow: false,
-  openRemoveSongFromPlaylistWindow: false,
+  removeSongFromPlaylist: false,
   songIndexToChangePlaylist: -1
 };
 
@@ -89,7 +90,6 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         songIndexToChangePlaylist: -1,
       };
     case addSongToPlaylistActionName:
-      console.log(songsListState);
       return {
         ...songsListState,
         openAddSongToPlaylistWindow: false,
@@ -97,6 +97,15 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         playlists: {
           ...songsListState.playlists,
           [action.playlist]: [...songsListState.playlists[action.playlist], songsListState.songIndexToChangePlaylist],
+        }
+      };
+    case removeSongFromPlaylistOkActionName:
+      return {
+        ...songsListState,
+        playlists: {
+          ...songsListState.playlists,
+          [songsListState.currentPlaylistName]: songsListState.playlists[songsListState.currentPlaylistName].filter(
+            (songIndex: number) => songIndex !== action.songIndexToChangePlaylist)
         }
       };
 
@@ -112,6 +121,7 @@ export const combinedReducers = combineReducers({
   viewport,
 });
 
+
 // Selectors:
 export const getLocation = (state: any) => {
   return state.router.location;
@@ -122,3 +132,4 @@ export const getPlaylists = (state: State) => state.songsListState.playlists;
 export const getOpenAddPlaylistWindow = (state: State) => state.songsListState.openAddPlaylistWindow;
 export const getOpenAddSongToPlaylistWindow = (state: State) => state.songsListState.openAddSongToPlaylistWindow;
 export const getSongIndexToChangePlaylist = (state: State) => state.songsListState.songIndexToChangePlaylist;
+

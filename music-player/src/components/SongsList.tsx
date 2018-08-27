@@ -6,7 +6,8 @@ import { Dispatch } from 'redux';
 import { songsNamesList } from '../data';
 import { State } from '../types';
 import { AddSongToPlaylist } from './AddSongToPlaylist';
-import { addSongToPlaylistOpenWindowAction } from '../actions';
+import {showDeleteConfirm} from './RemoveSongFromPlaylist';
+import { getAddSongToPlaylistOpenWindowAction } from '../actions';
 import { getPlaylists, getCurrentPlaylistName, getCurrentSongIndex } from '../reducers';
 
 
@@ -27,8 +28,9 @@ const SongsList = ({ songsToDisplay, currentSongIndex, dispatch, songsIndices }:
 
           <div className="song-buttons">
             <Button className="add-song-button song-button" shape="circle" icon="plus" size="small"
-                    onClick={() => dispatch(addSongToPlaylistOpenWindowAction(realIndex))}/>
-            <Button className="remove-song-button song-button" shape="circle" icon="minus" size="small"/>
+                    onClick={() => dispatch(getAddSongToPlaylistOpenWindowAction(realIndex))}/>
+            <Button className="remove-song-button song-button" shape="circle" icon="minus" size="small"
+                    onClick={() => showDeleteConfirm(dispatch, realIndex)}/>
           </div>
 
           <AddSongToPlaylist/>

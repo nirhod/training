@@ -5,7 +5,7 @@ export type SongsListState = {
   openAddPlaylistWindow: boolean;
   playlists: {};
   openAddSongToPlaylistWindow: boolean;
-  openRemoveSongFromPlaylistWindow: boolean;
+  removeSongFromPlaylist: boolean;
   songIndexToChangePlaylist: number;
 };
 export type Action = { type: string; newPlaylist: string; songIndexToChangePlaylist: number; playlist: string };
