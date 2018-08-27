@@ -15,9 +15,6 @@ class AddSongToPlaylist extends React.Component<{
 
   render = () => {
     const { playlistsNotIncludeSongIndex, show, dispatch } = this.props;
-
-    // console.log(playlistsNotIncludeSongIndex);
-
     const sendActionCloseWindow = () => dispatch(addSongToPlaylistCloseWindowAction);
     return (
       <Modal title="Add Song to Playlist" visible={show} onOk={sendActionCloseWindow} onCancel={sendActionCloseWindow}>
@@ -42,9 +39,9 @@ const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number) => (
 
 
 const mapStateToProps = (state: State) => {
-  console.log(state)
-  console.log(getPlaylistsNotIncludeSongIndex(getPlaylists(state),
-    getSongIndexToChangePlaylist(state)));
+  console.log(state);
+  // console.log(getPlaylistsNotIncludeSongIndex(getPlaylists(state),
+  //   getSongIndexToChangePlaylist(state)));
   return {
   playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(getPlaylists(state),
     getSongIndexToChangePlaylist(state)),
