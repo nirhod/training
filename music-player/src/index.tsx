@@ -3,8 +3,6 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import App from './App';
-import './index.css';
-import registerServiceWorker from './registerServiceWorker';
 import { combinedReducers } from './reducers';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 // tslint:disable
@@ -23,4 +21,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root') as HTMLElement,
 );
-registerServiceWorker();
