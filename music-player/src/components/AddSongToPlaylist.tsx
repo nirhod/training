@@ -18,15 +18,17 @@ class AddSongToPlaylist extends React.Component<{
     const sendActionCloseWindow = () => dispatch(addSongToPlaylistCloseWindowAction);
     return (
       <Modal title="Add Song to Playlist" visible={show} onOk={sendActionCloseWindow} onCancel={sendActionCloseWindow}>
-        {playlistsNotIncludeSongIndex.map((playlist: string) => (
-          <div key={playlist}>
-            <Button className="add-song-to-playlist-button"
-                    onClick={() => dispatch(addSongToPlaylistAction(playlist))}>
-              {playlist}
-            </Button>
-            <br/>
-          </div>
-        ))}
+        {!show ? '' :
+          playlistsNotIncludeSongIndex.length === 0 ? 'All playlist have the song.' :
+          playlistsNotIncludeSongIndex.map((playlist: string) => (
+            <div key={playlist}>
+              <Button className="add-song-to-playlist-button"
+                      onClick={() => dispatch(addSongToPlaylistAction(playlist))}>
+                {playlist}
+              </Button>
+              <br/>
+            </div>
+          ))}
       </Modal>
     );
   };
@@ -34,7 +36,8 @@ class AddSongToPlaylist extends React.Component<{
 
 const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number) => (
   Object.keys(playlists).filter(playlist => {
-    return !(playlists[playlist].includes(songIndex))})
+    return !(playlists[playlist].includes(songIndex));
+  })
 );
 
 
@@ -43,10 +46,11 @@ const mapStateToProps = (state: State) => {
   // console.log(getPlaylistsNotIncludeSongIndex(getPlaylists(state),
   //   getSongIndexToChangePlaylist(state)));
   return {
-  playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(getPlaylists(state),
-    getSongIndexToChangePlaylist(state)),
-  show: getOpenAddSongToPlaylistWindow(state),
-}};
+    playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(getPlaylists(state),
+      getSongIndexToChangePlaylist(state)),
+    show: getOpenAddSongToPlaylistWindow(state),
+  };
+};
 
 const ConnectedAddSongToPlaylist = connect(mapStateToProps)(AddSongToPlaylist);
 

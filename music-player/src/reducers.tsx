@@ -86,12 +86,14 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
       return {
         ...songsListState,
         openAddSongToPlaylistWindow: false,
+        songIndexToChangePlaylist: -1,
       };
     case addSongToPlaylistActionName:
       console.log(songsListState);
       return {
         ...songsListState,
         openAddSongToPlaylistWindow: false,
+        songIndexToChangePlaylist: -1,
         playlists: {
           ...songsListState.playlists,
           [action.playlist]: [...songsListState.playlists[action.playlist], songsListState.songIndexToChangePlaylist],
