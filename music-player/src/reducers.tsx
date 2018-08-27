@@ -30,7 +30,7 @@ const initialSongsListState: SongsListState = {
 };
 
 const songsListStateReducer = (songsListState: SongsListState = initialSongsListState, action: Action) => {
-  const { currentSongIndex, playlists, currentPlaylistName } = songsListState;
+  const { currentSongIndex, playlists, currentPlaylistName, songIndexToChangePlaylist } = songsListState;
   switch (action.type) {
     case playNextSongActionName:
     case playPrevSongActionName:
@@ -75,7 +75,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
       return {
         ...songsListState,
         openAddPlaylistWindow: false,
-        playlists: { ...songsListState.playlists, [action.newPlaylist]: [] },
+        playlists: { ...playlists, [action.newPlaylist]: [] },
       };
     case addSongToPlaylistOpenWindowActionName:
       return {
@@ -95,20 +95,19 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         openAddSongToPlaylistWindow: false,
         songIndexToChangePlaylist: -1,
         playlists: {
-          ...songsListState.playlists,
-          [action.playlist]: [...songsListState.playlists[action.playlist], songsListState.songIndexToChangePlaylist],
+          ...playlists,
+          [action.playlist]: [...playlists[action.playlist], songIndexToChangePlaylist],
         }
       };
     case removeSongFromPlaylistOkActionName:
       return {
         ...songsListState,
         playlists: {
-          ...songsListState.playlists,
-          [songsListState.currentPlaylistName]: songsListState.playlists[songsListState.currentPlaylistName].filter(
+          ...playlists,
+          [currentPlaylistName]: playlists[currentPlaylistName].filter(
             (songIndex: number) => songIndex !== action.songIndexToChangePlaylist)
         }
       };
-
     default:
       return songsListState;
 
