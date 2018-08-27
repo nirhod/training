@@ -8,7 +8,7 @@ import {
   addSongToPlaylistOpenWindowActionName,
   addSongToPlaylistCloseWindowActionName,
   addSongToPlaylistActionName,
-  removeSongFromPlaylistOkActionName
+  removeSongFromPlaylistOkActionName,
 } from './actions';
 import { songsNamesList } from './data';
 import { Action, SongsListState, State } from './types';
@@ -26,7 +26,7 @@ const initialSongsListState: SongsListState = {
   openAddPlaylistWindow: false,
   openAddSongToPlaylistWindow: false,
   removeSongFromPlaylist: false,
-  songIndexToChangePlaylist: -1
+  songIndexToChangePlaylist: -1,
 };
 
 const songsListStateReducer = (songsListState: SongsListState = initialSongsListState, action: Action) => {
@@ -81,7 +81,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
       return {
         ...songsListState,
         openAddSongToPlaylistWindow: true,
-        songIndexToChangePlaylist: action.songIndexToChangePlaylist
+        songIndexToChangePlaylist: action.songIndexToChangePlaylist,
       };
     case addSongToPlaylistCloseWindowActionName:
       return {
@@ -97,7 +97,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         playlists: {
           ...playlists,
           [action.playlist]: [...playlists[action.playlist], songIndexToChangePlaylist],
-        }
+        },
       };
     case removeSongFromPlaylistOkActionName:
       return {
@@ -105,12 +105,12 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         playlists: {
           ...playlists,
           [currentPlaylistName]: playlists[currentPlaylistName].filter(
-            (songIndex: number) => songIndex !== action.songIndexToChangePlaylist)
-        }
+            (songIndex: number) => songIndex !== action.songIndexToChangePlaylist,
+          ),
+        },
       };
     default:
       return songsListState;
-
   }
 };
 
@@ -119,7 +119,6 @@ export const combinedReducers = combineReducers({
   router: routerReducer,
   viewport,
 });
-
 
 // Selectors:
 export const getLocation = (state: any) => {
@@ -131,4 +130,3 @@ export const getPlaylists = (state: State) => state.songsListState.playlists;
 export const getOpenAddPlaylistWindow = (state: State) => state.songsListState.openAddPlaylistWindow;
 export const getOpenAddSongToPlaylistWindow = (state: State) => state.songsListState.openAddSongToPlaylistWindow;
 export const getSongIndexToChangePlaylist = (state: State) => state.songsListState.songIndexToChangePlaylist;
-

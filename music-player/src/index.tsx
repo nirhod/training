@@ -16,7 +16,7 @@ const store = createStore(combinedReducers, {}, composeWithDevTools(applyMiddlew
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App/>
+      <App />
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root') as HTMLElement,

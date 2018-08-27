@@ -1,7 +1,6 @@
-import {Modal} from 'antd';
-import {Dispatch} from 'redux';
-import {getRemoveSongFromPlaylistOkAction} from '../actions';
-
+import { Modal } from 'antd';
+import { Dispatch } from 'redux';
+import { getRemoveSongFromPlaylistOkAction } from '../actions';
 
 export function showDeleteConfirm(dispatch: Dispatch, songIndex: number) {
   Modal.confirm({
@@ -10,7 +9,9 @@ export function showDeleteConfirm(dispatch: Dispatch, songIndex: number) {
     okType: 'danger',
     cancelText: 'No',
     maskClosable: true,
-    onOk: () => {console.log(getRemoveSongFromPlaylistOkAction(songIndex));
-      dispatch(getRemoveSongFromPlaylistOkAction(songIndex))},
+    onOk: () => {
+      console.log(getRemoveSongFromPlaylistOkAction(songIndex));
+      dispatch(getRemoveSongFromPlaylistOkAction(songIndex));
+    },
   });
 }
