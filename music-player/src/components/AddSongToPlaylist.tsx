@@ -46,23 +46,16 @@ class AddSongToPlaylist extends React.Component<{
   };
 }
 
-const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number) =>
-  Object.keys(playlists).filter(playlist => {
-    return !playlists[playlist].includes(songIndex);
-  });
+const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number): string[] =>
+  Object.keys(playlists).filter(playlist => !playlists[playlist].includes(songIndex));
 
-const mapStateToProps = (state: State) => {
-  console.log(state);
-  // console.log(getPlaylistsNotIncludeSongIndex(getPlaylists(state),
-  //   getSongIndexToChangePlaylist(state)));
-  return {
-    playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(
-      getPlaylists(state),
-      getSongIndexToChangePlaylist(state),
-    ),
-    show: getOpenAddSongToPlaylistWindow(state),
-  };
-};
+const mapStateToProps = (state: State) => ({
+  playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(
+    getPlaylists(state),
+    getSongIndexToChangePlaylist(state),
+  ),
+  show: getOpenAddSongToPlaylistWindow(state),
+});
 
 const ConnectedAddSongToPlaylist = connect(mapStateToProps)(AddSongToPlaylist);
 

@@ -10,12 +10,7 @@ import { getPlaylists } from '../reducers';
 
 const PlaylistMenu = ({ playlistsNames, dispatch }: { playlistsNames: string[]; dispatch: Dispatch }) => (
   <div className="menu">
-    <MenuAntd
-      defaultSelectedKeys={['All']}
-      onSelect={item => {
-        dispatch(getChangePlaylistAction(item.key));
-      }}
-    >
+    <MenuAntd defaultSelectedKeys={['All']} onSelect={item => dispatch(getChangePlaylistAction(item.key))}>
       <MenuAntd.ItemGroup title={menuHeader(dispatch)}>
         {playlistsNames.map(playlistName => (
           <MenuAntd.Item key={playlistName}>{playlistName}</MenuAntd.Item>

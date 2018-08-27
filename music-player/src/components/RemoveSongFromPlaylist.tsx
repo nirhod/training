@@ -10,7 +10,6 @@ export function showDeleteConfirm(dispatch: Dispatch, songIndex: number) {
     cancelText: 'No',
     maskClosable: true,
     onOk: () => {
-      console.log(getRemoveSongFromPlaylistOkAction(songIndex));
       dispatch(getRemoveSongFromPlaylistOkAction(songIndex));
     },
   });
