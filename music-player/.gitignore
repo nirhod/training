@@ -22,4 +22,3 @@ yarn-error.log*
 
 # songs
 /public/songs
-/src/forUrl
