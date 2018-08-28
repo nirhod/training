@@ -7,7 +7,6 @@ import { songsNamesList } from '../data';
 import { State } from '../types';
 import { AddSongToPlaylist } from './AddSongToPlaylist';
 import { showDeleteConfirm } from './RemoveSongFromPlaylist';
-import { getAddSongToPlaylistOpenWindowAction } from '../actions';
 import { getPlaylists, getCurrentPlaylistName, getCurrentSongIndex } from '../reducers';
 
 const SongsList = ({
@@ -29,15 +28,8 @@ const SongsList = ({
       <List.Item className="song-item">
         <div className="song">
           {currentSongIndex === realIndex ? <strong>{song}</strong> : song}
-
           <div className="song-buttons">
-            <Button
-              className="song-button add-song-button"
-              shape="circle"
-              icon="plus"
-              size="small"
-              onClick={() => dispatch(getAddSongToPlaylistOpenWindowAction(realIndex))}
-            />
+            <AddSongToPlaylist realIndex={realIndex}/>
             {currentPlaylistName === 'All' ? (
               ''
             ) : (
@@ -51,7 +43,6 @@ const SongsList = ({
             )}
           </div>
 
-          <AddSongToPlaylist />
         </div>
       </List.Item>
     );

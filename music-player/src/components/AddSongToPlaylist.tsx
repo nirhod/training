@@ -4,44 +4,65 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { State } from '../types';
-import { getPlaylists, getOpenAddSongToPlaylistWindow, getSongIndexToChangePlaylist } from '../reducers';
-import { addSongToPlaylistCloseWindowAction, getAddSongToPlaylistAction } from '../actions';
+import { getPlaylists } from '../reducers';
+import { getAddSongToPlaylistAction } from '../actions';
 
-class AddSongToPlaylist extends React.Component<{
-  playlistsNotIncludeSongIndex: string[];
-  show: boolean;
-  dispatch: Dispatch;
-}> {
+class AddSongToPlaylist extends React.Component<
+  {
+    playlistsNotIncludeSongIndex: string[];
+    realIndex: number;
+    dispatch: Dispatch;
+  },
+  { show: boolean }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { show: false };
+  }
+
+  closeWindowFunction = () => this.setState({ show: false });
+
   render = () => {
-    const { playlistsNotIncludeSongIndex, show, dispatch } = this.props;
-    const sendActionCloseWindow = () => dispatch(addSongToPlaylistCloseWindowAction);
+    const { playlistsNotIncludeSongIndex, dispatch } = this.props;
     return (
-      <Modal
-        title="Add Song to Playlist"
-        visible={show}
-        onCancel={sendActionCloseWindow}
-        footer={[
-          <Button key="ok" type="primary" onClick={sendActionCloseWindow}>
-            OK
-          </Button>,
-        ]}
-      >
-        {!show
-          ? ''
-          : playlistsNotIncludeSongIndex.length === 0
-            ? 'All playlists have the song.'
-            : playlistsNotIncludeSongIndex.map((playlist: string) => (
-                <div key={playlist}>
-                  <Button
-                    className="add-song-to-playlist-button"
-                    onClick={() => dispatch(getAddSongToPlaylistAction(playlist))}
-                  >
-                    {playlist}
-                  </Button>
-                  <br />
-                </div>
-              ))}
-      </Modal>
+      <div>
+        <Button
+          className="song-button add-song-button"
+          shape="circle"
+          icon="plus"
+          size="small"
+          onClick={() => this.setState({ show: true })}
+        />
+        <Modal
+          title="Add Song to Playlist"
+          visible={this.state.show}
+          onCancel={this.closeWindowFunction}
+          footer={[
+            <Button key="ok" type="primary" onClick={this.closeWindowFunction}>
+              OK
+            </Button>,
+          ]}
+        >
+          {!this.state.show
+            ? ''
+            : playlistsNotIncludeSongIndex.length === 0
+              ? 'All playlists have the song.'
+              : playlistsNotIncludeSongIndex.map((playlist: string) => (
+                  <div key={playlist}>
+                    <Button
+                      className="add-song-to-playlist-button"
+                      onClick={() => {
+                        dispatch(getAddSongToPlaylistAction(playlist, this.props.realIndex));
+                        this.closeWindowFunction();
+                      }}
+                    >
+                      {playlist}
+                    </Button>
+                    <br />
+                  </div>
+                ))}
+        </Modal>
+      </div>
     );
   };
 }
@@ -49,12 +70,9 @@ class AddSongToPlaylist extends React.Component<{
 const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number): string[] =>
   Object.keys(playlists).filter(playlist => !playlists[playlist].includes(songIndex));
 
-const mapStateToProps = (state: State) => ({
-  playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(
-    getPlaylists(state),
-    getSongIndexToChangePlaylist(state),
-  ),
-  show: getOpenAddSongToPlaylistWindow(state),
+const mapStateToProps = (state: State, { realIndex }: { realIndex: number }) => ({
+  playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(getPlaylists(state), realIndex),
+  realIndex,
 });
 
 const ConnectedAddSongToPlaylist = connect(mapStateToProps)(AddSongToPlaylist);
