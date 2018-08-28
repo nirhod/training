@@ -1,26 +1,26 @@
-import { Modal, Input } from 'antd';
+import { Modal, Input, Button } from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { addPlaylistCancelAction, getAddPlaylistSaveAction } from '../actions';
-import { getOpenAddPlaylistWindow } from '../reducers';
-import { State } from '../types';
+import { getAddPlaylistSaveAction } from '../actions';
 
-class AddPlaylist extends React.Component<{ show: boolean; dispatch: Dispatch }> {
+class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { show: boolean }> {
   inputRef: React.RefObject<any>;
 
   constructor(props: any) {
     super(props);
     this.inputRef = React.createRef();
+    this.state = { show: false };
   }
 
   render = () => (
     <div>
+      <Button onClick={() => this.setState({ show: true })} icon="plus-square" />
       <Modal
         title="Add New Playlist"
         okText="Save"
-        visible={this.props.show}
+        visible={this.state.show}
         onOk={this.savePlaylist}
         onCancel={this.cancelSavePlaylist}
       >
@@ -35,14 +35,14 @@ class AddPlaylist extends React.Component<{ show: boolean; dispatch: Dispatch }>
       return;
     }
     this.props.dispatch(getAddPlaylistSaveAction(inputValue));
-    this.inputRef.current.input.value = '';
+    this.cancelSavePlaylist();
   };
 
   cancelSavePlaylist = () => {
-    this.props.dispatch(addPlaylistCancelAction);
+    this.setState({ show: false });
     this.inputRef.current.input.value = '';
   };
 }
 
-const ConnectedAddPlaylist = connect((state: State) => ({ show: getOpenAddPlaylistWindow(state) }))(AddPlaylist);
+const ConnectedAddPlaylist = connect()(AddPlaylist);
 export { ConnectedAddPlaylist as AddPlaylist };

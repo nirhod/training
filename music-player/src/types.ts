@@ -2,7 +2,6 @@ export type State = { songsListState: SongsListState };
 export type SongsListState = {
   currentSongIndex: number;
   currentPlaylistName: string;
-  openAddPlaylistWindow: boolean;
   playlists: {};
   openAddSongToPlaylistWindow: boolean;
   removeSongFromPlaylist: boolean;

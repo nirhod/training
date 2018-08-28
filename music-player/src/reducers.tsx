@@ -2,13 +2,11 @@ import {
   changePlaylistActioName,
   playNextSongActionName,
   playPrevSongActionName,
-  addPlaylistCancelActionName,
   addPlaylistSaveActionName,
-  addPlaylistOpenWindowActionName,
   addSongToPlaylistOpenWindowActionName,
   addSongToPlaylistCloseWindowActionName,
   addSongToPlaylistActionName,
-  removeSongFromPlaylistOkActionName,
+  removeSongFromPlaylistOkActionName
 } from './actions';
 import { songsNamesList } from './data';
 import { Action, SongsListState, State } from './types';
@@ -23,10 +21,9 @@ const initialSongsListState: SongsListState = {
     All: songsNamesList.map((name, index) => index),
     FirstSongs: [0, 1],
   },
-  openAddPlaylistWindow: false,
   openAddSongToPlaylistWindow: false,
   removeSongFromPlaylist: false,
-  songIndexToChangePlaylist: -1,
+  songIndexToChangePlaylist: -1
 };
 
 const songsListStateReducer = (songsListState: SongsListState = initialSongsListState, action: Action) => {
@@ -61,16 +58,6 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         currentPlaylistName: action.newPlaylist,
         currentSongIndex: playlists[action.newPlaylist][0],
       };
-    case addPlaylistOpenWindowActionName:
-      return {
-        ...songsListState,
-        openAddPlaylistWindow: true,
-      };
-    case addPlaylistCancelActionName:
-      return {
-        ...songsListState,
-        openAddPlaylistWindow: false,
-      };
     case addPlaylistSaveActionName:
       return {
         ...songsListState,
@@ -81,7 +68,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
       return {
         ...songsListState,
         openAddSongToPlaylistWindow: true,
-        songIndexToChangePlaylist: action.songIndexToChangePlaylist,
+        songIndexToChangePlaylist: action.songIndexToChangePlaylist
       };
     case addSongToPlaylistCloseWindowActionName:
       return {
@@ -97,7 +84,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         playlists: {
           ...playlists,
           [action.playlist]: [...playlists[action.playlist], songIndexToChangePlaylist],
-        },
+        }
       };
     case removeSongFromPlaylistOkActionName:
       return {
@@ -105,12 +92,12 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         playlists: {
           ...playlists,
           [currentPlaylistName]: playlists[currentPlaylistName].filter(
-            (songIndex: number) => songIndex !== action.songIndexToChangePlaylist,
-          ),
-        },
+            (songIndex: number) => songIndex !== action.songIndexToChangePlaylist)
+        }
       };
     default:
       return songsListState;
+
   }
 };
 
@@ -120,6 +107,7 @@ export const combinedReducers = combineReducers({
   viewport,
 });
 
+
 // Selectors:
 export const getLocation = (state: any) => {
   return state.router.location;
@@ -127,6 +115,6 @@ export const getLocation = (state: any) => {
 export const getCurrentSongIndex = (state: State) => state.songsListState.currentSongIndex;
 export const getCurrentPlaylistName = (state: State) => state.songsListState.currentPlaylistName;
 export const getPlaylists = (state: State) => state.songsListState.playlists;
-export const getOpenAddPlaylistWindow = (state: State) => state.songsListState.openAddPlaylistWindow;
 export const getOpenAddSongToPlaylistWindow = (state: State) => state.songsListState.openAddSongToPlaylistWindow;
 export const getSongIndexToChangePlaylist = (state: State) => state.songsListState.songIndexToChangePlaylist;
+
