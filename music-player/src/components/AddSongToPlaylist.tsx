@@ -25,7 +25,7 @@ class AddSongToPlaylist extends React.Component<
   render = () => {
     const { playlistsNotIncludeSongIndex, dispatch } = this.props;
     return (
-      <div>
+      <span>
         <Button
           className="song-button add-song-button"
           shape="circle"
@@ -62,7 +62,7 @@ class AddSongToPlaylist extends React.Component<
                   </div>
                 ))}
         </Modal>
-      </div>
+      </span>
     );
   };
 }
