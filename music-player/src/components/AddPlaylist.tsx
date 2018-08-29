@@ -5,22 +5,22 @@ import { Dispatch } from 'redux';
 
 import { createAddPlaylistSaveActionObject } from '../actions';
 
-class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { show: boolean }> {
+class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { showModal: boolean }> {
   inputRef: React.RefObject<any>;
 
   constructor(props: any) {
     super(props);
     this.inputRef = React.createRef();
-    this.state = { show: false };
+    this.state = { showModal: false };
   }
 
   render = () => (
     <div>
-      <Button onClick={() => this.setState({ show: true })} icon="plus-square" />
+      <Button onClick={() => this.setState({ showModal: true })} icon="plus-square" />
       <Modal
         title="Add New Playlist"
         okText="Save"
-        visible={this.state.show}
+        visible={this.state.showModal}
         onOk={this.savePlaylist}
         onCancel={this.cancelSavePlaylist}
       >
@@ -39,7 +39,7 @@ class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { show: boolea
   };
 
   cancelSavePlaylist = () => {
-    this.setState({ show: false });
+    this.setState({ showModal: false });
     this.inputRef.current.input.value = '';
   };
 }
