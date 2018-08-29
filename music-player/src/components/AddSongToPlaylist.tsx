@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 
 import { State } from '../types';
 import { getPlaylists } from '../reducers';
-import { addSongToPlaylistAction } from '../actions';
+import { createAddSongToPlaylistActionObject } from '../actions';
 import { SongButton } from './StyledComponents';
 import styled from 'styled-components';
 
@@ -65,7 +65,7 @@ class AddSongToPlaylist extends React.Component<
                   <div key={playlist}>
                     <ChoosePlaylistButton
                       onClick={() => {
-                        dispatch(addSongToPlaylistAction(playlist, this.props.realIndex));
+                        dispatch(createAddSongToPlaylistActionObject(playlist, this.props.realIndex));
                         this.closeWindowFunction();
                       }}
                     >

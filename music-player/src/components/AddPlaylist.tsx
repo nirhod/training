@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { addPlaylistSaveAction } from '../actions';
+import { createAddPlaylistSaveActionObject } from '../actions';
 
 class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { show: boolean }> {
   inputRef: React.RefObject<any>;
@@ -34,7 +34,7 @@ class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { show: boolea
     if (!inputValue) {
       return;
     }
-    this.props.dispatch(addPlaylistSaveAction(inputValue));
+    this.props.dispatch(createAddPlaylistSaveActionObject(inputValue));
     this.cancelSavePlaylist();
   };
 
