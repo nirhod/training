@@ -21,37 +21,35 @@ const ChoosePlaylistButton = styled<any>(Button)`
   text-align: left;
 `;
 
-class AddSongToPlaylist extends React.Component<
-  {
-    playlistsNotIncludeSongIndex: string[];
-    songIndex: number;
-    addSongToPlaylist: (playlist: string, songIndex: number) => {};
-  },
-  { show: boolean }
-> {
+type OwnProps = { songIndex: number };
+type StateProps = { playlistsNotIncludeSongIndex: string[] };
+type DispatchProps = { addSongToPlaylist: (playlist: string, songIndex: number) => {} };
+type Props = OwnProps & StateProps & DispatchProps;
+
+class AddSongToPlaylist extends React.Component<Props, { showModal: boolean }> {
   constructor(props: any) {
     super(props);
-    this.state = { show: false };
+    this.state = { showModal: false };
   }
 
-  closeWindowFunction = () => this.setState({ show: false });
+  closeWindow = () => this.setState({ showModal: false });
 
   render = () => {
     const { playlistsNotIncludeSongIndex, addSongToPlaylist } = this.props;
     return (
       <span>
-        <AddSongButton shape="circle" icon="plus" size="small" onClick={() => this.setState({ show: true })} />
+        <AddSongButton shape="circle" icon="plus" size="small" onClick={() => this.setState({ showModal: true })} />
         <Modal
           title="Add Song to Playlist"
-          visible={this.state.show}
-          onCancel={this.closeWindowFunction}
+          visible={this.state.showModal}
+          onCancel={this.closeWindow}
           footer={[
-            <Button key="ok" type="primary" onClick={this.closeWindowFunction}>
+            <Button key="ok" type="primary" onClick={this.closeWindow}>
               OK
             </Button>,
           ]}
         >
-          {!this.state.show
+          {!this.state.showModal
             ? ''
             : playlistsNotIncludeSongIndex.length === 0
               ? 'All playlists have the song.'
@@ -60,7 +58,7 @@ class AddSongToPlaylist extends React.Component<
                     <ChoosePlaylistButton
                       onClick={() => {
                         addSongToPlaylist(playlist, this.props.songIndex);
-                        this.closeWindowFunction();
+                        this.closeWindow();
                       }}
                     >
                       {playlist}
@@ -87,6 +85,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch(createAddSongToPlaylistActionObject(playlist, songIndex)),
 });
 
-const ConnectedAddSongToPlaylist = connect(mapStateToProps, mapDispatchToProps)(AddSongToPlaylist);
+const ConnectedAddSongToPlaylist = connect<StateProps, DispatchProps, OwnProps>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddSongToPlaylist);
 
 export { ConnectedAddSongToPlaylist as AddSongToPlaylist };
