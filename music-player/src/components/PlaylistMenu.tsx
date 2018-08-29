@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { getChangePlaylistAction } from '../actions';
+import { changePlaylistAction } from '../actions';
 import { AddPlaylist } from './AddPlaylist';
 import { State } from '../types';
 import { getPlaylists } from '../reducers';
@@ -20,7 +20,7 @@ const SideMenuHeader = styled.div`
 
 const PlaylistMenu = ({ playlistsNames, dispatch }: { playlistsNames: string[]; dispatch: Dispatch }) => (
   <SideMenu>
-    <MenuAntd defaultSelectedKeys={['All']} onSelect={item => dispatch(getChangePlaylistAction(item.key))}>
+    <MenuAntd defaultSelectedKeys={['All']} onSelect={item => dispatch(changePlaylistAction(item.key))}>
       <MenuAntd.ItemGroup title={menuHeader(dispatch)}>
         {playlistsNames.map(playlistName => (
           <MenuAntd.Item key={playlistName}>{playlistName}</MenuAntd.Item>

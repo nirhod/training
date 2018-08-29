@@ -7,14 +7,14 @@ export const REMOVE_SONG_FROM_PLAYLIST_ACTION_NAME = 'REMOVE_SONG_FROM_PLAYLIST_
 
 export const playPrevSongAction = { type: PLAY_PREV_SONG_ACTION_NAME };
 export const playNextSongAction = { type: PLAY_NEXT_SONG_ACTION_NAME };
-export const getChangePlaylistAction = (newPlaylist: string) => ({ type: CHANGE_PLAYLIST_ACTION_NAME, newPlaylist });
-export const getAddPlaylistSaveAction = (newPlaylist: string) => ({ type: ADD_PLAYLIST_ACTION_NAME, newPlaylist });
-export const getAddSongToPlaylistAction = (playlist: string, songIndex: number) => ({
+export const changePlaylistAction = (newPlaylist: string) => ({ type: CHANGE_PLAYLIST_ACTION_NAME, newPlaylist });
+export const addPlaylistSaveAction = (newPlaylist: string) => ({ type: ADD_PLAYLIST_ACTION_NAME, newPlaylist });
+export const addSongToPlaylistAction = (playlist: string, songIndex: number) => ({
   type: ADD_SONG_TO_PLAYLIST_ACTION_NAME,
   playlist,
   songIndex,
 });
-export const getRemoveSongFromPlaylistAction = (songIndex: number) => ({
+export const removeSongFromPlaylistAction = (songIndex: number) => ({
   type: REMOVE_SONG_FROM_PLAYLIST_ACTION_NAME,
   songIndex,
 });

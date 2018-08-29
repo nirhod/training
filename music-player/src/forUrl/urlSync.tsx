@@ -11,7 +11,7 @@ import { getCurrentPlaylistName } from '../reducers';
 const VIEWPORT_ONLY_URL = new UrlPattern('/:viewport');
 const VIEWPORT_WITH_OBJECT_ID_URL = new UrlPattern('/:viewport/:objectId');
 
-import { getChangePlaylistAction } from '../actions';
+import { changePlaylistAction } from '../actions';
 
 type StateProps = {
   viewport: string | null;
@@ -117,7 +117,7 @@ const ConnectedURLSync = connect<StateProps, DispatchProps>(
   {
     push: pushAction,
     setViewport: setViewportAction,
-    setPlaylist: getChangePlaylistAction,
+    setPlaylist: changePlaylistAction,
   },
 )(URLSync);
 
