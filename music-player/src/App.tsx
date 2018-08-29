@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import './App.css';
 import { MusicController } from './components/MusicController';
 import { PlaylistMenu } from './components/PlaylistMenu';
 import { SongsList } from './components/SongsList';
@@ -9,23 +8,33 @@ import { State } from './types';
 import { getCurrentPlaylistName } from './reducers';
 import { URLSync } from './forUrl/urlSync';
 import { getCurrentSongIndex } from './reducers';
+import styled from 'styled-components';
+
+const Header = styled.header`
+  text-align: center;
+  margin: 2em;
+`;
+
+const Menus = styled.div`
+  display: flex;
+`;
 
 const App = ({ currentSongIndex, currentPlaylistName }: { currentSongIndex: number; currentPlaylistName: string }) => {
   if (currentSongIndex === -1) {
     return <h1>Wrong URL!!!</h1>;
   }
   return (
-    <div className="musicPlayer">
+    <div>
       <URLSync />
-      <header className="header">
+      <Header>
         <h1>Music Player</h1>
         <h3>Playlist: {currentPlaylistName}</h3>
         <MusicController />
-      </header>
-      <div className="main">
+      </Header>
+      <Menus>
         <PlaylistMenu />
         <SongsList />
-      </div>
+      </Menus>
     </div>
   );
 };

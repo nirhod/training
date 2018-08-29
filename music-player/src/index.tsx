@@ -8,6 +8,7 @@ import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 // tslint:disable
 import createHistory from 'history/createBrowserHistory';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import 'antd/dist/antd.css'
 
 const history = createHistory();
 const router = routerMiddleware(history);

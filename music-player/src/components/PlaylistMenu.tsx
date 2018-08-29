@@ -7,9 +7,19 @@ import { getChangePlaylistAction } from '../actions';
 import { AddPlaylist } from './AddPlaylist';
 import { State } from '../types';
 import { getPlaylists } from '../reducers';
+import styled from 'styled-components';
+
+const SideMenu = styled.div`
+  width: 10%;
+`;
+
+const SideMenuHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const PlaylistMenu = ({ playlistsNames, dispatch }: { playlistsNames: string[]; dispatch: Dispatch }) => (
-  <div className="menu">
+  <SideMenu>
     <MenuAntd defaultSelectedKeys={['All']} onSelect={item => dispatch(getChangePlaylistAction(item.key))}>
       <MenuAntd.ItemGroup title={menuHeader(dispatch)}>
         {playlistsNames.map(playlistName => (
@@ -17,8 +27,7 @@ const PlaylistMenu = ({ playlistsNames, dispatch }: { playlistsNames: string[]; 
         ))}
       </MenuAntd.ItemGroup>
     </MenuAntd>
-
-  </div>
+  </SideMenu>
 );
 
 const PlaylistMenuConnected = connect(
@@ -29,8 +38,8 @@ const PlaylistMenuConnected = connect(
 export { PlaylistMenuConnected as PlaylistMenu };
 
 const menuHeader = (dispatch: Dispatch) => (
-  <div className="menu-header">
+  <SideMenuHeader>
     Playlists
     <AddPlaylist />
-  </div>
+  </SideMenuHeader>
 );

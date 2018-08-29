@@ -6,6 +6,20 @@ import { Dispatch } from 'redux';
 import { State } from '../types';
 import { getPlaylists } from '../reducers';
 import { getAddSongToPlaylistAction } from '../actions';
+import { SongButton } from './StyledComponents';
+import styled from 'styled-components';
+
+const AddSongButton = styled<any>(SongButton)`
+  && {
+    color: green;
+  }
+`;
+
+const ChoosePlaylistButton = styled<any>(Button)`
+  width: 30%;
+  margin-bottom: 1em;
+  text-align: left;
+`;
 
 class AddSongToPlaylist extends React.Component<
   {
@@ -26,8 +40,8 @@ class AddSongToPlaylist extends React.Component<
     const { playlistsNotIncludeSongIndex, dispatch } = this.props;
     return (
       <span>
-        <Button
-          className="song-button add-song-button"
+        <AddSongButton
+          className="song-button"
           shape="circle"
           icon="plus"
           size="small"
@@ -49,15 +63,14 @@ class AddSongToPlaylist extends React.Component<
               ? 'All playlists have the song.'
               : playlistsNotIncludeSongIndex.map((playlist: string) => (
                   <div key={playlist}>
-                    <Button
-                      className="add-song-to-playlist-button"
+                    <ChoosePlaylistButton
                       onClick={() => {
                         dispatch(getAddSongToPlaylistAction(playlist, this.props.realIndex));
                         this.closeWindowFunction();
                       }}
                     >
                       {playlist}
-                    </Button>
+                    </ChoosePlaylistButton>
                     <br />
                   </div>
                 ))}
