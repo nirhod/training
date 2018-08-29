@@ -44,8 +44,8 @@ class AddSongToPlaylist extends React.Component<Props, { showModal: boolean }> {
           visible={this.state.showModal}
           onCancel={this.closeWindow}
           footer={[
-            <Button key="ok" type="primary" onClick={this.closeWindow}>
-              OK
+            <Button key="cancel" type="primary" onClick={this.closeWindow}>
+              CANCEL
             </Button>,
           ]}
         >
