@@ -22,7 +22,7 @@ class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { showModal: b
         okText="Save"
         visible={this.state.showModal}
         onOk={this.savePlaylist}
-        onCancel={this.cancelSavePlaylist}
+        onCancel={this.closeModal}
       >
         <Input placeholder="PlaylistName" ref={this.inputRef} />
       </Modal>
@@ -35,10 +35,10 @@ class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { showModal: b
       return;
     }
     this.props.dispatch(createAddPlaylistSaveActionObject(inputValue));
-    this.cancelSavePlaylist();
+    this.closeModal();
   };
 
-  cancelSavePlaylist = () => {
+  closeModal = () => {
     this.setState({ showModal: false });
     this.inputRef.current.input.value = '';
   };
