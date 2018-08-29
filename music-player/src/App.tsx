@@ -5,9 +5,8 @@ import { MusicController } from './components/MusicController';
 import { PlaylistMenu } from './components/PlaylistMenu';
 import { SongsList } from './components/SongsList';
 import { State } from './types';
-import { getCurrentPlaylistName } from './reducers';
+import { getCurrentPlaylistName, getIsValidURL } from './reducers';
 import { URLSync } from './forUrl/urlSync';
-import { getCurrentSongIndex } from './reducers';
 import styled from 'styled-components';
 
 const Header = styled.header`
@@ -19,8 +18,8 @@ const Menus = styled.div`
   display: flex;
 `;
 
-const App = ({ currentSongIndex, currentPlaylistName }: { currentSongIndex: number; currentPlaylistName: string }) => {
-  if (currentSongIndex === -1) {
+const App = ({ isValidURL, currentPlaylistName }: { isValidURL: boolean; currentPlaylistName: string }) => {
+  if (!isValidURL) {
     return <h1>Wrong URL!!!</h1>;
   }
   return (
@@ -40,7 +39,7 @@ const App = ({ currentSongIndex, currentPlaylistName }: { currentSongIndex: numb
 };
 
 const AppConnected = connect((state: State) => ({
-  currentSongIndex: getCurrentSongIndex(state),
+  isValidURL: getIsValidURL(state),
   currentPlaylistName: getCurrentPlaylistName(state),
 }))(App);
 export default AppConnected;

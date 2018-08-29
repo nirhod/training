@@ -19,6 +19,7 @@ const initialSongsListState: SongsListState = {
     All: songsNamesList.map((name, index) => index),
     FirstSongs: [0, 1],
   },
+  isValidURL: true
 };
 
 const songsListStateReducer = (songsListState: SongsListState = initialSongsListState, action: Action) => {
@@ -45,7 +46,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
       if (!(action.newPlaylist in playlists)) {
         return {
           ...songsListState,
-          currentSongIndex: -1,
+          isValidURL: false,
         };
       }
       return {
@@ -96,5 +97,6 @@ export const getLocation = (state: any) => {
 export const getCurrentSongIndex = (state: State) => state.songsListState.currentSongIndex;
 export const getCurrentPlaylistName = (state: State) => state.songsListState.currentPlaylistName;
 export const getPlaylists = (state: State) => state.songsListState.playlists;
+export const getIsValidURL = (state: State) => state.songsListState.isValidURL;
 
 
