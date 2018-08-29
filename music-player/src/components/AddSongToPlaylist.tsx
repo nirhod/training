@@ -41,7 +41,6 @@ class AddSongToPlaylist extends React.Component<
     return (
       <span>
         <AddSongButton
-          className="song-button"
           shape="circle"
           icon="plus"
           size="small"
