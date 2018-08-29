@@ -25,7 +25,7 @@ class AddSongToPlaylist extends React.Component<
   {
     playlistsNotIncludeSongIndex: string[];
     songIndex: number;
-    dispatch: Dispatch;
+    addSongToPlaylist: (playlist: string, songIndex: number) => {};
   },
   { show: boolean }
 > {
@@ -37,15 +37,10 @@ class AddSongToPlaylist extends React.Component<
   closeWindowFunction = () => this.setState({ show: false });
 
   render = () => {
-    const { playlistsNotIncludeSongIndex, dispatch } = this.props;
+    const { playlistsNotIncludeSongIndex, addSongToPlaylist } = this.props;
     return (
       <span>
-        <AddSongButton
-          shape="circle"
-          icon="plus"
-          size="small"
-          onClick={() => this.setState({ show: true })}
-        />
+        <AddSongButton shape="circle" icon="plus" size="small" onClick={() => this.setState({ show: true })} />
         <Modal
           title="Add Song to Playlist"
           visible={this.state.show}
@@ -64,7 +59,7 @@ class AddSongToPlaylist extends React.Component<
                   <div key={playlist}>
                     <ChoosePlaylistButton
                       onClick={() => {
-                        dispatch(createAddSongToPlaylistActionObject(playlist, this.props.songIndex));
+                        addSongToPlaylist(playlist, this.props.songIndex);
                         this.closeWindowFunction();
                       }}
                     >
@@ -87,6 +82,11 @@ const mapStateToProps = (state: State, { songIndex }: { songIndex: number }) => 
   songIndex,
 });
 
-const ConnectedAddSongToPlaylist = connect(mapStateToProps)(AddSongToPlaylist);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addSongToPlaylist: (playlist: string, songIndex: number) =>
+    dispatch(createAddSongToPlaylistActionObject(playlist, songIndex)),
+});
+
+const ConnectedAddSongToPlaylist = connect(mapStateToProps, mapDispatchToProps)(AddSongToPlaylist);
 
 export { ConnectedAddSongToPlaylist as AddSongToPlaylist };
