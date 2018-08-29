@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 
 import { createAddPlaylistSaveActionObject } from '../actions';
 
-class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { showModal: boolean }> {
+class AddPlaylist extends React.Component<{ savePlaylist: (playlistName: string) => {} }, { showModal: boolean }> {
   inputRef: React.RefObject<any>;
 
   constructor(props: any) {
@@ -21,7 +21,7 @@ class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { showModal: b
         title="Add New Playlist"
         okText="Save"
         visible={this.state.showModal}
-        onOk={this.savePlaylist}
+        onOk={this.handleOk}
         onCancel={this.closeModal}
       >
         <Input placeholder="PlaylistName" ref={this.inputRef} />
@@ -29,12 +29,12 @@ class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { showModal: b
     </div>
   );
 
-  savePlaylist = () => {
+  handleOk = () => {
     const inputValue = this.inputRef.current.input.value;
     if (!inputValue) {
       return;
     }
-    this.props.dispatch(createAddPlaylistSaveActionObject(inputValue));
+    this.props.savePlaylist(inputValue);
     this.closeModal();
   };
 
@@ -44,5 +44,12 @@ class AddPlaylist extends React.Component<{ dispatch: Dispatch }, { showModal: b
   };
 }
 
-const ConnectedAddPlaylist = connect()(AddPlaylist);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  savePlaylist: (playlistName: string) => {
+    dispatch(createAddPlaylistSaveActionObject(playlistName));
+  }
+});
+
+
+const ConnectedAddPlaylist = connect(null, mapDispatchToProps)(AddPlaylist);
 export { ConnectedAddPlaylist as AddPlaylist };
