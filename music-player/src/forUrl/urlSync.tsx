@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { push as pushAction } from 'react-router-redux';
-import UrlPattern from 'url-pattern';
+import * as UrlPattern from 'url-pattern';
 
 import { getViewport } from './viewport';
 import { setViewport as setViewportAction } from './viewportActionCreator';
