@@ -21,10 +21,10 @@ const ChoosePlaylistButton = styled<any>(Button)`
   text-align: left;
 `;
 
-type OwnProps = { songIndex: number };
 type StateProps = { playlistsNotIncludeSongIndex: string[] };
-type DispatchProps = { addSongToPlaylist: (playlist: string, songIndex: number) => {} };
-type Props = OwnProps & StateProps & DispatchProps;
+type DispatchProps = { addSongToPlaylist: (playlist: string) => {} };
+type OwnProps = { songIndex: number};
+type Props = StateProps & DispatchProps;
 
 class AddSongToPlaylist extends React.Component<Props, { showModal: boolean }> {
   constructor(props: any) {
@@ -32,7 +32,7 @@ class AddSongToPlaylist extends React.Component<Props, { showModal: boolean }> {
     this.state = { showModal: false };
   }
 
-  closeWindow = () => this.setState({ showModal: false });
+  closeModal = () => this.setState({ showModal: false });
 
   render = () => {
     const { playlistsNotIncludeSongIndex, addSongToPlaylist } = this.props;
@@ -42,9 +42,9 @@ class AddSongToPlaylist extends React.Component<Props, { showModal: boolean }> {
         <Modal
           title="Add Song to Playlist"
           visible={this.state.showModal}
-          onCancel={this.closeWindow}
+          onCancel={this.closeModal}
           footer={[
-            <Button key="cancel" type="primary" onClick={this.closeWindow}>
+            <Button key="cancel" type="primary" onClick={this.closeModal}>
               CANCEL
             </Button>,
           ]}
@@ -57,8 +57,8 @@ class AddSongToPlaylist extends React.Component<Props, { showModal: boolean }> {
                   <div key={playlist}>
                     <ChoosePlaylistButton
                       onClick={() => {
-                        addSongToPlaylist(playlist, this.props.songIndex);
-                        this.closeWindow();
+                        addSongToPlaylist(playlist);
+                        this.closeModal();
                       }}
                     >
                       {playlist}
@@ -77,12 +77,10 @@ const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number): stri
 
 const mapStateToProps = (state: State, { songIndex }: { songIndex: number }) => ({
   playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(getPlaylists(state), songIndex),
-  songIndex,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addSongToPlaylist: (playlist: string, songIndex: number) =>
-    dispatch(createAddSongToPlaylistActionObject(playlist, songIndex)),
+const mapDispatchToProps = (dispatch: Dispatch, { songIndex }: { songIndex: number }) => ({
+  addSongToPlaylist: (playlist: string) => dispatch(createAddSongToPlaylistActionObject(playlist, songIndex)),
 });
 
 const ConnectedAddSongToPlaylist = connect<StateProps, DispatchProps, OwnProps>(
