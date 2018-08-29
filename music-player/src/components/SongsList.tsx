@@ -48,7 +48,7 @@ const SongsList = ({
         <SongLine>
           {currentSongIndex === realIndex ? <strong>{song}</strong> : song}
           <div>
-            <AddSongToPlaylist realIndex={realIndex} />
+            <AddSongToPlaylist songIndex={realIndex} />
             {currentPlaylistName === 'All' ? (
               ''
             ) : (

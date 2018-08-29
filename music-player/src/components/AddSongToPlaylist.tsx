@@ -24,7 +24,7 @@ const ChoosePlaylistButton = styled<any>(Button)`
 class AddSongToPlaylist extends React.Component<
   {
     playlistsNotIncludeSongIndex: string[];
-    realIndex: number;
+    songIndex: number;
     dispatch: Dispatch;
   },
   { show: boolean }
@@ -65,7 +65,7 @@ class AddSongToPlaylist extends React.Component<
                   <div key={playlist}>
                     <ChoosePlaylistButton
                       onClick={() => {
-                        dispatch(createAddSongToPlaylistActionObject(playlist, this.props.realIndex));
+                        dispatch(createAddSongToPlaylistActionObject(playlist, this.props.songIndex));
                         this.closeWindowFunction();
                       }}
                     >
@@ -83,9 +83,9 @@ class AddSongToPlaylist extends React.Component<
 const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number): string[] =>
   Object.keys(playlists).filter(playlist => !playlists[playlist].includes(songIndex));
 
-const mapStateToProps = (state: State, { realIndex }: { realIndex: number }) => ({
-  playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(getPlaylists(state), realIndex),
-  realIndex,
+const mapStateToProps = (state: State, { songIndex }: { songIndex: number }) => ({
+  playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(getPlaylists(state), songIndex),
+  songIndex,
 });
 
 const ConnectedAddSongToPlaylist = connect(mapStateToProps)(AddSongToPlaylist);
