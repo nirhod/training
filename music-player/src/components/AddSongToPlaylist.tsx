@@ -22,7 +22,7 @@ const ChoosePlaylistButton = styled<any>(Button)`
 `;
 
 type StateProps = { playlistsNotIncludeSongIndex: string[] };
-type DispatchProps = { addSongToPlaylist: (playlist: string) => {} };
+type DispatchProps = { addSongToPlaylist: (playlist: string) => void} ;
 type OwnProps = { songIndex: number};
 type Props = StateProps & DispatchProps;
 
@@ -34,7 +34,7 @@ class AddSongToPlaylist extends React.Component<Props, { showModal: boolean }> {
 
   closeModal = () => this.setState({ showModal: false });
 
-  render = () => {
+  render() {
     const { playlistsNotIncludeSongIndex, addSongToPlaylist } = this.props;
     return (
       <span>
