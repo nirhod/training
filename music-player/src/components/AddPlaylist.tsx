@@ -14,20 +14,22 @@ class AddPlaylist extends React.Component<{ savePlaylist: (playlistName: string)
     this.state = { showModal: false };
   }
 
-  render = () => (
-    <div>
-      <Button onClick={() => this.setState({ showModal: true })} icon="plus-square" />
-      <Modal
-        title="Add New Playlist"
-        okText="Save"
-        visible={this.state.showModal}
-        onOk={this.handleOk}
-        onCancel={this.closeModal}
-      >
-        <Input placeholder="PlaylistName" ref={this.inputRef} />
-      </Modal>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <Button onClick={() => this.setState({ showModal: true })} icon="plus-square" />
+        <Modal
+          title="Add New Playlist"
+          okText="Save"
+          visible={this.state.showModal}
+          onOk={this.handleOk}
+          onCancel={this.closeModal}
+        >
+          <Input placeholder="PlaylistName" ref={this.inputRef} />
+        </Modal>
+      </div>
+    );
+  }
 
   handleOk = () => {
     const inputValue = this.inputRef.current.input.value;
@@ -47,9 +49,11 @@ class AddPlaylist extends React.Component<{ savePlaylist: (playlistName: string)
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   savePlaylist: (playlistName: string) => {
     dispatch(createAddPlaylistSaveActionObject(playlistName));
-  }
+  },
 });
 
-
-const ConnectedAddPlaylist = connect(null, mapDispatchToProps)(AddPlaylist);
+const ConnectedAddPlaylist = connect(
+  null,
+  mapDispatchToProps,
+)(AddPlaylist);
 export { ConnectedAddPlaylist as AddPlaylist };
