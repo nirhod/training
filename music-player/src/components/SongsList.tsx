@@ -1,15 +1,15 @@
-import { List } from 'antd';
+import { List, Modal } from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import styled from 'styled-components';
 
 import { songsNamesList } from '../data';
 import { State } from '../types';
+import { getCurrentPlaylistName, getCurrentSongIndex, getPlaylists } from '../reducers';
+import { createRemoveSongFromPlaylistActionObject } from '../actions';
 import { AddSongToPlaylist } from './AddSongToPlaylist';
-import { showDeleteConfirm } from './RemoveSongFromPlaylist';
-import { getPlaylists, getCurrentPlaylistName, getCurrentSongIndex } from '../reducers';
-import styled from 'styled-components';
-import { SongButton, ListItem } from './StyledComponents';
+import { ListItem, SongButton } from './StyledComponents';
 
 const MainMenu = styled.div`
   width: 90%;
@@ -56,7 +56,7 @@ const SongsList = ({
                 shape="circle"
                 icon="minus"
                 size="small"
-                onClick={() => showDeleteConfirm(dispatch, realIndex)}
+                onClick={() => showDeleteSongFromPlaylistModal(dispatch, realIndex)}
               />
             )}
           </div>
@@ -70,6 +70,19 @@ const SongsList = ({
     </MainMenu>
   );
 };
+
+function showDeleteSongFromPlaylistModal(dispatch: Dispatch, songIndex: number) {
+  Modal.confirm({
+    title: 'Are you sure you want to delete the song from the playlist?',
+    okText: 'Yes',
+    okType: 'danger',
+    cancelText: 'No',
+    maskClosable: true,
+    onOk: () => {
+      dispatch(createRemoveSongFromPlaylistActionObject(songIndex));
+    },
+  });
+}
 
 const mapStateToProps = (state: State) => {
   const currentPlaylistName = getCurrentPlaylistName(state);
