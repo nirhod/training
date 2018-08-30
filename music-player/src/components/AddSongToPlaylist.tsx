@@ -1,10 +1,10 @@
-import { Modal, Button } from 'antd';
+import { Button, Modal } from 'antd';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { State } from '../types';
-import { getPlaylists } from '../reducers';
+import { getPlaylists, getPlaylistsNotIncludeSongIndex } from '../reducers';
 import { createAddSongToPlaylistActionObject } from '../actions';
 import { SongButton } from './StyledComponents';
 import styled from 'styled-components';
@@ -71,9 +71,6 @@ class AddSongToPlaylist extends React.Component<Props, { showModal: boolean }> {
     );
   };
 }
-
-const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number): string[] =>
-  Object.keys(playlists).filter(playlist => !playlists[playlist].includes(songIndex));
 
 const mapStateToProps = (state: State, { songIndex }: { songIndex: number }) => ({
   playlistsNotIncludeSongIndex: getPlaylistsNotIncludeSongIndex(getPlaylists(state), songIndex),

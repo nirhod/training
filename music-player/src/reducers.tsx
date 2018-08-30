@@ -1,10 +1,10 @@
 import {
+  ADD_PLAYLIST_ACTION_NAME,
+  ADD_SONG_TO_PLAYLIST_ACTION_NAME,
   CHANGE_PLAYLIST_ACTION_NAME,
   PLAY_NEXT_SONG_ACTION_NAME,
   PLAY_PREV_SONG_ACTION_NAME,
-  ADD_PLAYLIST_ACTION_NAME,
-  ADD_SONG_TO_PLAYLIST_ACTION_NAME,
-  REMOVE_SONG_FROM_PLAYLIST_ACTION_NAME
+  REMOVE_SONG_FROM_PLAYLIST_ACTION_NAME,
 } from './actions';
 import { songsNamesList } from './data';
 import { Action, SongsListState, State } from './types';
@@ -98,5 +98,7 @@ export const getCurrentSongIndex = (state: State) => state.songsListState.curren
 export const getCurrentPlaylistName = (state: State) => state.songsListState.currentPlaylistName;
 export const getPlaylists = (state: State) => state.songsListState.playlists;
 export const getIsValidURL = (state: State) => state.songsListState.isValidURL;
+export const getPlaylistsNotIncludeSongIndex = (playlists: {}, songIndex: number): string[] =>
+  Object.keys(playlists).filter(playlist => !playlists[playlist].includes(songIndex));
 
 
