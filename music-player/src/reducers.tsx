@@ -1,10 +1,10 @@
 import {
-  ADD_PLAYLIST_ACTION_NAME,
-  ADD_SONG_TO_PLAYLIST_ACTION_NAME,
-  CHANGE_PLAYLIST_ACTION_NAME,
-  PLAY_NEXT_SONG_ACTION_NAME,
-  PLAY_PREV_SONG_ACTION_NAME,
-  REMOVE_SONG_FROM_PLAYLIST_ACTION_NAME,
+  ADD_PLAYLIST_ACTION_TYPE,
+  ADD_SONG_TO_PLAYLIST_ACTION_TYPE,
+  CHANGE_PLAYLIST_ACTION_TYPE,
+  PLAY_NEXT_SONG_ACTION_TYPE,
+  PLAY_PREV_SONG_ACTION_TYPE,
+  REMOVE_SONG_FROM_PLAYLIST_ACTION_TYPE,
 } from './actions';
 import { songsNamesList } from './data';
 import { Action, SongsListState, State } from './types';
@@ -25,11 +25,11 @@ const initialSongsListState: SongsListState = {
 const songsListStateReducer = (songsListState: SongsListState = initialSongsListState, action: Action) => {
   const { currentSongIndex, playlists, currentPlaylistName } = songsListState;
   switch (action.type) {
-    case PLAY_NEXT_SONG_ACTION_NAME:
-    case PLAY_PREV_SONG_ACTION_NAME:
+    case PLAY_NEXT_SONG_ACTION_TYPE:
+    case PLAY_PREV_SONG_ACTION_TYPE:
       const currentPlaylistArray = playlists[currentPlaylistName];
       const songIndexInPlaylist = currentPlaylistArray.indexOf(currentSongIndex);
-      if (action.type === PLAY_NEXT_SONG_ACTION_NAME) {
+      if (action.type === PLAY_NEXT_SONG_ACTION_TYPE) {
         return {
           ...songsListState,
           currentSongIndex: currentPlaylistArray[(songIndexInPlaylist + 1) % currentPlaylistArray.length],
@@ -42,7 +42,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
             ? currentPlaylistArray[songIndexInPlaylist - 1]
             : currentPlaylistArray[currentPlaylistArray.length - 1],
       };
-    case CHANGE_PLAYLIST_ACTION_NAME:
+    case CHANGE_PLAYLIST_ACTION_TYPE:
       if (!(action.newPlaylist in playlists)) {
         return {
           ...songsListState,
@@ -54,13 +54,13 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         currentPlaylistName: action.newPlaylist,
         currentSongIndex: playlists[action.newPlaylist][0],
       };
-    case ADD_PLAYLIST_ACTION_NAME:
+    case ADD_PLAYLIST_ACTION_TYPE:
       return {
         ...songsListState,
         openAddPlaylistWindow: false,
         playlists: { ...playlists, [action.newPlaylist]: [] },
       };
-    case ADD_SONG_TO_PLAYLIST_ACTION_NAME:
+    case ADD_SONG_TO_PLAYLIST_ACTION_TYPE:
       return {
         ...songsListState,
         playlists: {
@@ -68,7 +68,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
           [action.playlist]: [...playlists[action.playlist], action.songIndex],
         }
       };
-    case REMOVE_SONG_FROM_PLAYLIST_ACTION_NAME:
+    case REMOVE_SONG_FROM_PLAYLIST_ACTION_TYPE:
       return {
         ...songsListState,
         playlists: {
