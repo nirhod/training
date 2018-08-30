@@ -28,19 +28,16 @@ const RemoveSongButton = styled<any>(SongButton)`
   }
 `;
 
-const SongsList = ({
-  songsToDisplay,
-  currentSongIndex,
-  dispatch,
-  songsIndices,
-  currentPlaylistName,
-}: {
+type StateProps = {
   songsToDisplay: string[];
   currentSongIndex: number;
-  dispatch: Dispatch;
   songsIndices: number[];
-  currentPlaylistName: string;
-}) => {
+  showRemoveButton: boolean;
+};
+type DispatchProps = { removeSong: (songIndex: number) => void };
+type Props = StateProps & DispatchProps;
+
+const SongsList = ({ songsToDisplay, currentSongIndex, songsIndices, showRemoveButton, removeSong }: Props) => {
   const songToComponent = (song: string, indexInPlaylist: number) => {
     const realIndex = songsIndices[indexInPlaylist];
     return (
@@ -49,14 +46,14 @@ const SongsList = ({
           {currentSongIndex === realIndex ? <strong>{song}</strong> : song}
           <div>
             <AddSongToPlaylist songIndex={realIndex} />
-            {currentPlaylistName === 'All' ? (
+            {showRemoveButton ? (
               ''
             ) : (
               <RemoveSongButton
                 shape="circle"
                 icon="minus"
                 size="small"
-                onClick={() => showDeleteSongFromPlaylistModal(dispatch, realIndex)}
+                onClick={() => showRemoveSongFromPlaylistModal(() => removeSong(realIndex))}
               />
             )}
           </div>
@@ -71,16 +68,14 @@ const SongsList = ({
   );
 };
 
-function showDeleteSongFromPlaylistModal(dispatch: Dispatch, songIndex: number) {
+function showRemoveSongFromPlaylistModal(removeSpecificSong: () => void) {
   Modal.confirm({
-    title: 'Are you sure you want to delete the song from the playlist?',
+    title: 'Are you sure you want to remove the song from the playlist?',
     okText: 'Yes',
     okType: 'danger',
     cancelText: 'No',
     maskClosable: true,
-    onOk: () => {
-      dispatch(createRemoveSongFromPlaylistActionObject(songIndex));
-    },
+    onOk: removeSpecificSong,
   });
 }
 
@@ -91,11 +86,20 @@ const mapStateToProps = (state: State) => {
     songsToDisplay: getSongsByPlaylist(currentPlaylistName, playlists),
     currentSongIndex: getCurrentSongIndex(state),
     songsIndices: playlists[currentPlaylistName],
-    currentPlaylistName,
+    showRemoveButton: currentPlaylistName === 'All'
   };
 };
 
-const SongsListConnected = connect(mapStateToProps)(SongsList);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  removeSong: (songIndex: number) => {
+    dispatch(createRemoveSongFromPlaylistActionObject(songIndex));
+  },
+});
+
+const SongsListConnected = connect<StateProps, DispatchProps>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SongsList);
 export { SongsListConnected as SongsList };
 
 const getSongsByPlaylist = (playlist: string, playlists: {}): string[] =>
