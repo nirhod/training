@@ -8,38 +8,50 @@ import { songsNamesList } from '../data';
 import { State } from '../types';
 import { getCurrentSongIndex } from '../reducers';
 
-const MusicController = ({
-  currentSongIndex,
-  currentSongName,
-  dispatch,
-}: {
-  currentSongIndex: number;
+type StateProps = {
   currentSongName: string;
-  dispatch: Dispatch;
-}) => (
+};
+
+type DispatchProps = {
+  playPrevSong: () => void;
+  playNexSong: () => void;
+};
+
+type Props = StateProps & DispatchProps;
+
+const MusicController = ({ currentSongName, playPrevSong, playNexSong }: Props) => (
   <div>
     <h2>{currentSongName}</h2>
-    <audio controls={true} key={currentSongIndex}>
+    <audio controls={true} key={currentSongName}>
       <source src={`/songs/${currentSongName}`} type="audio/mpeg" />
       Your browser does not support the audio tag.
     </audio>
     <br />
     <Button.Group>
-      <Button onClick={() => dispatch(playPrevSongAction)}>
+      <Button onClick={playPrevSong}>
         <Icon type="step-backward" />
       </Button>
-      <Button onClick={() => dispatch(playNextSongAction)}>
+      <Button onClick={playNexSong}>
         <Icon type="step-forward" />
       </Button>
     </Button.Group>
   </div>
 );
 
-const ConnectedMusicController = connect((state: State) => {
+const mapStateToProps = (state: State) => {
   const currentSongIndex = getCurrentSongIndex(state);
   return {
-    currentSongIndex,
     currentSongName: songsNamesList[currentSongIndex],
   };
-})(MusicController);
+};
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  playPrevSong: () => dispatch(playPrevSongAction),
+  playNexSong: () => dispatch(playNextSongAction),
+});
+
+const ConnectedMusicController = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MusicController);
 export { ConnectedMusicController as MusicController };
