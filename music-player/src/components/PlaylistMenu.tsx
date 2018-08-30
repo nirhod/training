@@ -18,10 +18,14 @@ const SideMenuHeader = styled.div`
   justify-content: space-between;
 `;
 
-const PlaylistMenu = ({ playlistsNames, dispatch }: { playlistsNames: string[]; dispatch: Dispatch }) => (
+type StateProps = { playlistsNames: string[] };
+type DispatchProps = { changePlaylist: (newPlaylist: string) => void };
+type Props = StateProps & DispatchProps;
+
+const PlaylistMenu = ({ playlistsNames, changePlaylist }: Props) => (
   <SideMenu>
-    <MenuAntd defaultSelectedKeys={['All']} onSelect={item => dispatch(createChangePlaylistActionObject(item.key))}>
-      <MenuAntd.ItemGroup title={menuHeader(dispatch)}>
+    <MenuAntd defaultSelectedKeys={['All']} onSelect={item => changePlaylist(item.key)}>
+      <MenuAntd.ItemGroup title={menuHeader}>
         {playlistsNames.map(playlistName => (
           <MenuAntd.Item key={playlistName}>{playlistName}</MenuAntd.Item>
         ))}
@@ -30,16 +34,23 @@ const PlaylistMenu = ({ playlistsNames, dispatch }: { playlistsNames: string[]; 
   </SideMenu>
 );
 
-const PlaylistMenuConnected = connect(
-  (state: State): { playlistsNames: string[] } => ({
-    playlistsNames: Object.keys(getPlaylists(state)),
-  }),
-)(PlaylistMenu);
-export { PlaylistMenuConnected as PlaylistMenu };
-
-const menuHeader = (dispatch: Dispatch) => (
+const menuHeader = (
   <SideMenuHeader>
     Playlists
     <AddPlaylist />
   </SideMenuHeader>
 );
+
+const mapStateToProps = (state: State): { playlistsNames: string[] } => ({
+  playlistsNames: Object.keys(getPlaylists(state)),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  changePlaylist: (newPlaylist: string) => dispatch(createChangePlaylistActionObject(newPlaylist)),
+});
+
+const PlaylistMenuConnected = connect<StateProps, DispatchProps>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PlaylistMenu);
+export { PlaylistMenuConnected as PlaylistMenu };

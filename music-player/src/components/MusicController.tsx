@@ -50,7 +50,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   playNexSong: () => dispatch(playNextSongAction),
 });
 
-const ConnectedMusicController = connect(
+const ConnectedMusicController = connect<StateProps, DispatchProps>(
   mapStateToProps,
   mapDispatchToProps,
 )(MusicController);
