@@ -57,7 +57,6 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
     case ADD_PLAYLIST_ACTION_TYPE:
       return {
         ...songsListState,
-        openAddPlaylistWindow: false,
         playlists: { ...playlists, [action.newPlaylist]: [] },
       };
     case ADD_SONG_TO_PLAYLIST_ACTION_TYPE:
