@@ -41,7 +41,7 @@ const menuHeader = (
   </SideMenuHeader>
 );
 
-const mapStateToProps = (state: State): { playlistsNames: string[] } => ({
+const mapStateToProps = (state: State): StateProps => ({
   playlistsNames: Object.keys(getPlaylists(state)),
 });
 

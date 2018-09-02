@@ -5,7 +5,10 @@ import { Dispatch } from 'redux';
 
 import { createAddPlaylistSaveActionObject } from '../actions';
 
-class AddPlaylist extends React.Component<{ savePlaylist: (playlistName: string) => {} }, { showModal: boolean }> {
+type Props = { savePlaylist: (playlistName: string) => {} };
+type State = { showModal: boolean };
+
+class AddPlaylist extends React.Component<Props, State> {
   inputRef: React.RefObject<any>;
 
   constructor(props: any) {
