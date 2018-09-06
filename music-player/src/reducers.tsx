@@ -36,7 +36,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
             : currentPlaylistArray[currentPlaylistArray.length - 1],
       };
     case ActionsTypes.CHANGE_PLAYLIST_ACTION_TYPE:
-      if (!(action.playlist in playlists)) {
+      if (!(action.payload.playlist in playlists)) {
         return {
           ...songsListState,
           isValidURL: false,
@@ -44,20 +44,20 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
       }
       return {
         ...songsListState,
-        currentPlaylistName: action.playlist,
-        currentSongIndex: playlists[action.playlist][0],
+        currentPlaylistName: action.payload.playlist,
+        currentSongIndex: playlists[action.payload.playlist][0],
       };
     case ActionsTypes.ADD_PLAYLIST_ACTION_TYPE:
       return {
         ...songsListState,
-        playlists: { ...playlists, [action.playlist]: [] },
+        playlists: { ...playlists, [action.payload.playlist]: [] },
       };
     case ActionsTypes.ADD_SONG_TO_PLAYLIST_ACTION_TYPE:
       return {
         ...songsListState,
         playlists: {
           ...playlists,
-          [action.playlist]: [...playlists[action.playlist], action.songIndex],
+          [action.payload.playlist]: [...playlists[action.payload.playlist], action.payload.songIndex],
         },
       };
     case ActionsTypes.REMOVE_SONG_FROM_PLAYLIST_ACTION_TYPE:
@@ -66,7 +66,7 @@ const songsListStateReducer = (songsListState: SongsListState = initialSongsList
         playlists: {
           ...playlists,
           [currentPlaylistName]: playlists[currentPlaylistName].filter(
-            (songIndex: number) => songIndex !== action.songIndex,
+            (songIndex: number) => songIndex !== action.payload.songIndex,
           ),
         },
       };

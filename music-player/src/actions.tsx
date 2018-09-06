@@ -13,18 +13,20 @@ export const playPrevSongAction: BasicAction = { type: ActionsTypes.PLAY_PREV_SO
 export const playNextSongAction: BasicAction = { type: ActionsTypes.PLAY_NEXT_SONG_ACTION_TYPE };
 export const createChangePlaylistActionObject = (playlist: string): PlaylistAction => ({
   type: ActionsTypes.CHANGE_PLAYLIST_ACTION_TYPE,
-  playlist,
+  payload: {playlist},
 });
 export const createAddPlaylistSaveActionObject = (playlist: string): PlaylistAction => ({
   type: ActionsTypes.ADD_PLAYLIST_ACTION_TYPE,
-  playlist,
+  payload: {playlist},
 });
 export const createAddSongToPlaylistActionObject = (playlist: string, songIndex: number): IndexPlaylistAction => ({
   type: ActionsTypes.ADD_SONG_TO_PLAYLIST_ACTION_TYPE,
-  playlist,
-  songIndex,
+  payload: {
+    playlist,
+    songIndex,
+  }
 });
 export const createRemoveSongFromPlaylistActionObject = (songIndex: number): IndexAction => ({
   type: ActionsTypes.REMOVE_SONG_FROM_PLAYLIST_ACTION_TYPE,
-  songIndex,
+  payload: {songIndex},
 });
